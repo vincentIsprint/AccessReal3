@@ -1,5 +1,5 @@
 import { useState, React } from 'react';
-import { AppBar,Toolbar,Box,Typography,IconButton, Avatar, MenuItem, Menu, ListItemIcon, Divider } from '@mui/material';
+import { AppBar, Toolbar, Box, IconButton, MenuItem, Menu, ListItemIcon, Divider } from '@mui/material';
 import PopupDialog from './PopupDialog';
 import LanguageIcon from '@mui/icons-material/Language';
 import { Logout, Settings } from '@mui/icons-material';
@@ -7,6 +7,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useDispatch } from 'react-redux';
 import { setLoginInfo } from '../redux/setting';
+import CustomTypo from './CustomTypo';
 
 const Header = (props) => {
 
@@ -77,7 +78,9 @@ const Header = (props) => {
                                 : null
                             }
                         </Box>
-                        <Typography variant="button" sx={{ flexGrow: 1, color:"primary.main" }}>{info.title}</Typography>
+                        <Box sx={{flexGrow:1}}>
+                            <CustomTypo variant="h6" mVariant="button" color="primary.main" content={info.title}/>
+                        </Box>
                         {
                             info.rightcontent ?
                                 info.rightcontent
@@ -98,12 +101,9 @@ const Header = (props) => {
                     {   
                         info.title2?
                             <Toolbar>
-                                <Typography
-                                    variant="h5"
-                                    sx={{ flexGrow: 1,color:"primary.main", fontWeight: 'bold' }}
-                                >
-                                {info.title2}
-                                </Typography>
+                                <Box sx={{flexGrow:1}}>
+                                    <CustomTypo variant="h5" mVariant="h6" color="primary.main" content={info.title2}/>
+                                </Box>
                             </Toolbar>
                         :null
                     }

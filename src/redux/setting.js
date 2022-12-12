@@ -22,7 +22,7 @@ export const settingSlice = createSlice({
     setMeasure: (state,{payload}) => {
       state.innerHeight = payload.innerHeight
       state.innerWidth = payload.innerWidth
-      console.log(state,{payload})
+      // console.log(state,{payload})
     }
   }
 });

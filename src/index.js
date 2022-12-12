@@ -4,7 +4,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import store from "../src/redux/store";
+import store from "./redux/store";
 
 const container = document.getElementById('root');
 const root = createRoot(container);

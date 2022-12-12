@@ -1,10 +1,9 @@
 import { useState, React } from 'react';
-import { IconButton, Grid, Container, Typography, Box, Snackbar, Alert, TextField, Stack, Avatar, Button, Paper } from '@mui/material';
+import { IconButton, Grid, Container, Snackbar, Alert, TextField, Stack, Button } from '@mui/material';
 import Header from '../component/Header';
 import Footer from '../component/Footer';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import Fade from '@mui/material/Fade';
-import PersonIcon from '@mui/icons-material/Person';
 import { Link } from 'react-router-dom';
 
 const Profile = () => {

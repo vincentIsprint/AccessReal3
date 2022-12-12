@@ -1,12 +1,14 @@
 import { useState, React } from 'react';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import { IconButton, Typography, Box, Container, Grid, Table, TableHead, TableRow, TableCell, TableBody, TableContainer, Paper } from '@mui/material';
+import { IconButton, Container, Grid, Stack } from '@mui/material';
 import Header from '../component/Header';
 import Footer from '../component/Footer';
 import Image from '../component/Image';
 import AR_Img from '../img/AR.png';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import CustomTable from '../component/CustomTable';
+import CustomTypo from '../component/CustomTypo';
 
 const Help = () => {
 
@@ -26,6 +28,10 @@ const Help = () => {
         ]
     })
 
+    function createData(name, value) {
+        return { name, value };
+    }
+
     const [body] = useState({
         Images : [
             {
@@ -34,10 +40,14 @@ const Help = () => {
                 marginTop: '10%'
             }
         ],
+        AuthDetails : [
+            createData('No', 'LastScan'),
+            createData('1', '01 Jan 2021 12:12:12 GMT'),
+            createData('2', '31 Jan 2021 12:12:12 GMT')
+        ],
         Footer: [
             {   
-                content: 
-                    <Typography sx={{color:"primary.inverted", flexGrow: 1}} variant="caption" display="block" align="center">Powered by i-Sprint</Typography>
+                content: <CustomTypo variant="subtitle1" mVariant="body2" color="primary.inverted" content="Powered by i-Sprint" align="center"/>
             }
         ]
     })
@@ -58,78 +68,49 @@ const Help = () => {
                 : null
             }
 
-            <Container sx={{paddingTop:'10%'}}>
-                <Grid container justifyContent="center" spacing={2}>
-                    <Grid item xs={12} md={12}>
-                        {
-                            setting.productInfo === "success" ? 
-                                <>
-                                    <Typography sx={{color:"primary.main",flexGrow: 1}} align='left' variant="body1" display="block" >
-                                        This product has been successfully authenticated and its verified that this is a genuine product
-                                    </Typography><br/>
-                                    <Typography sx={{color:"primary.main",flexGrow: 1,paddingBottom:'2%'}} align='left' variant="body1" display="block" >
-                                        Authentication Details
-                                    </Typography>
-
-                                    <TableContainer component={Paper}>
-                                        <Table size="small">
-                                            <TableHead>
-                                                <TableRow>
-                                                    <TableCell sx={{width:'5%'}}>No.</TableCell>
-                                                    <TableCell align="left">Last Scan DateTime</TableCell>
-                                                </TableRow>
-                                            </TableHead>
-                                            <TableBody sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                                                <TableRow>
-                                                    <TableCell component="th" scope="row">1</TableCell>
-                                                    <TableCell>01 Jan 2021 12:12:12 GMT</TableCell>
-                                                </TableRow>
-                                                <TableRow>
-                                                    <TableCell>2</TableCell>
-                                                    <TableCell>31 Jan 2021 12:12:12 GMT</TableCell>
-                                                </TableRow>
-                                            </TableBody>
-                                        </Table>
-                                    </TableContainer>
-                                    {/* <Typography sx={{color:"primary.main",flexGrow: 1}} align='left' variant="body1" display="block" >
-                                        DateTime: 01 Jan 2021 12:12:12 GMT
-                                    </Typography><br/> */}
-                                    <Typography sx={{color:"primary.main",flexGrow: 1, paddingTop:'2%'}} align='left' variant="body1" display="block" >
-                                        Please note that product authentication is strictly an one-time verification process to check the product authenticity.
-                                    </Typography><br/>
-                                    <Typography sx={{color:"primary.main",flexGrow: 1}} align='left' variant="body1" display="block" >
-                                        You are adviced to click on the "download" button to download a copy of the ownership card for reward claiming purposes.
-                                    </Typography>
-                                </>
-                            : setting.productInfo === "verify" ? 
-                                <>
-                                    <Typography sx={{color:"primary.main",flexGrow: 1}} align='left' variant="body1" display="block" >
-                                        Click on the "Verify Product Authenticity" button and scan the product hidden code to verify the product authenticity.
-                                    </Typography><br/>
-                                    <Typography sx={{color:"primary.main",flexGrow: 1}} align='left' variant="body1" display="block" >
-                                        Please note that product verification is only a one-time verification process to check the product authenticity.
-                                    </Typography>
-                                </>
-                            : setting.productInfo === "failed" || setting.productInfo === "history" ? 
-                            <>
-                                <Typography sx={{color:"primary.main",flexGrow: 1}} align='left' variant="body1" display="block" >
-                                    This product has been previously scanned and authenticated as a genuine product. If you have scanned this product previously then you do not have to worry about the product authenticity.
-                                </Typography><br/>
-                                <Typography sx={{color:"primary.main",flexGrow: 1}} align='left' variant="body1" display="block" >
-                                    Last authenticated detail:
-                                </Typography>
-                                <Typography sx={{color:"primary.main",flexGrow: 1}} align='left' variant="body1" display="block" >
-                                    DateTime: 01 Jan 2021 12:12:12 GMT
-                                </Typography><br/>
-                                <Typography sx={{color:"primary.main",flexGrow: 1}} align='left' variant="body1" display="block" >
-                                    However, if this is your first time opening and authenticating using the hidden QR code, there is a chance that this is not a genuine product.
-                                </Typography>
-                            </>
-                            : null
-                        }
-                    </Grid>
-                </Grid>
-            </Container>
+            <Stack direction="column" spacing={2} sx={{paddingLeft:'5%', paddingRight:'5%'}}>
+                {
+                    setting.productInfo === "success" ? 
+                        <>
+                            <CustomTypo variant="subtitle1" mVariant="body2" color="primary.main" align="left"
+                                content="This product has been successfully authenticated and its verified that this is a genuine product"
+                            />
+                            <CustomTypo variant="subtitle1" mVariant="body2" color="primary.main" align="left"
+                                content="Authenticated detail:"
+                            />
+                            <CustomTable info={body.AuthDetails} />
+                            <CustomTypo variant="subtitle1" mVariant="body2" color="primary.main" align="left"
+                                content="Please note that product authentication is strictly an one-time verification process to check the product authenticity."
+                            />
+                            <CustomTypo variant="subtitle1" mVariant="body2" color="primary.main" align="left"
+                                content='You are adviced to click on the "download" button to download a copy of the ownership card for reward claiming purposes.'
+                            />
+                        </>
+                    : setting.productInfo === "verify" ? 
+                        <>
+                            <CustomTypo variant="subtitle1" mVariant="body2" color="primary.main" align="left"
+                                content='Click on the "Verify Product Authenticity" button and scan the product hidden code to verify the product authenticity.'
+                            />
+                           <CustomTypo variant="subtitle1" mVariant="body2" color="primary.main" align="left"
+                                content='Please note that product verification is only a one-time verification process to check the product authenticity.'
+                            />
+                        </>
+                    : setting.productInfo === "failed" || setting.productInfo === "history" ? 
+                        <>
+                            <CustomTypo variant="subtitle1" mVariant="body2" color="primary.main" align="left"
+                                content='This product has been previously scanned and authenticated as a genuine product. If you have scanned this product previously then you do not have to worry about the product authenticity.'
+                            />
+                            <CustomTypo variant="subtitle1" mVariant="body2" color="primary.main" align="left"
+                                content='Authenticated detail:'
+                            />
+                            <CustomTable info={body.AuthDetails} />
+                            <CustomTypo variant="subtitle1" mVariant="body2" color="primary.main" align="left"
+                                content='However, if this is your first time opening and authenticating using the hidden QR code, there is a chance that this is not a genuine product.'
+                            />
+                        </>
+                    : null
+                }
+            </Stack>
             {
                 body.Footer != null ?
                     <Footer info={body.Footer[0]} />

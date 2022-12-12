@@ -1,5 +1,5 @@
 import { useState, React } from 'react';
-import { Box, Container, Grid, List, ListItem, ListItemText, Button, Fade, TextField, InputAdornment, ListItemAvatar, Snackbar, Alert, Chip, Stack, Pagination, Paper  } from '@mui/material';
+import { Box, Container, Grid, List, ListItem, ListItemText, Fade, TextField, InputAdornment, ListItemAvatar, Snackbar, Alert, Chip, Stack, Pagination, Paper  } from '@mui/material';
 import Header from '../component/Header';
 import Footer from '../component/Footer';
 import similac from '../img/similac.png';
@@ -7,22 +7,11 @@ import magic from '../img/magic.jpg';
 import lus2 from '../img/lus2.png';
 import Image from '../component/Image';
 import SearchIcon from '@mui/icons-material/Search';
-import Settings from '@mui/icons-material/Settings';
-import Logout from '@mui/icons-material/Logout';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import TransferWithinAStationIcon from '@mui/icons-material/TransferWithinAStation';
 import PopupDialog from '../component/PopupDialog';
 
 const Voucher = () => {
-
-    const [anchorEl, setAnchorEl] = useState(null);
-    const open = Boolean(anchorEl);
-    const handleClick = (event) => {
-      setAnchorEl(event.currentTarget);
-    };
-    const handleClose = () => {
-      setAnchorEl(null);
-    };
 
     const [header] = useState({
         Item : [{ 
@@ -163,9 +152,9 @@ const Voucher = () => {
                                                     <Box sx={{padding:'2%'}}>
                                                         <Chip icon={<ContentCopyIcon />} size="small" label="Voucher Code" onClick={handleClickCopy(Fade)}/>
                                                     </Box>
-                                                    <Box sx={{padding:'2%'}}>
+                                                    {/* <Box sx={{padding:'2%'}}>
                                                         <Chip icon={<TransferWithinAStationIcon />} size="small" label="Transfer" onClick={handleOpenTransfer}/>
-                                                    </Box>
+                                                    </Box> */}
                                                 </Stack>
                                             </ListItem>
                                         </Paper>

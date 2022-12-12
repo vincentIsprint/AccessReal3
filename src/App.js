@@ -4,11 +4,10 @@ import ProductInfo from './view/ProductInfo';
 import PreAuth from './view/PreAuth';
 import FAQ from './view/FAQ';
 import Help_Scan from './view/Help_Scan';
-import Help_Login from './view/Help_Login';
 import Help from './view/Help';
 import Scan from './view/Scan';
 import Scan_History from './view/Scan_History';
-import Texture from './img/texture/texture9.png'
+import Texture from './img/texture/texture2.png'
 import Login from './view/Login';
 import SignUp from './view/SignUp';
 import Profile from './view/Profile';
@@ -76,7 +75,6 @@ const App = () => {
             <Routes>
                 <Route path="/ProductInfo" element={<ProductInfo/>}/>
                 <Route path="/Login" element={<Login/>}/>
-                <Route path="/Help_Login" element={<Help_Login/>}/>
                 <Route path="/SignUp" element={<SignUp/>}/>
                 <Route path="/ResetPassword" element={<ResetPassword/>}/>
                 <Route path="/PreAuth" element={<PreAuth/>}/>
@@ -94,7 +92,7 @@ const App = () => {
             </Routes>
 
             {/* Developer Option - Testing Use ONLY */}
-            <Fab sx={{position: 'absolute', bottom: 16, right: 16,}} size="small" color="secondary" aria-label="add" onClick={handleOpenDevSetting}>
+            <Fab sx={{position: 'absolute', top: 16, right: 16,}} size="small" color="secondary" aria-label="add" onClick={handleOpenDevSetting}>
                 <SettingsIcon />
             </Fab>
             <PopupDialog

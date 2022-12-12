@@ -1,12 +1,17 @@
 import { useState, React } from 'react';
-import { IconButton, Grid, Container, Typography, Box, Snackbar, Alert, TextField, Stack, Avatar, Button, Checkbox, FormControlLabel, Divider, Chip  } from '@mui/material';
+import { IconButton, Grid, Container, Snackbar, Alert, TextField, Stack, Avatar, Button, Checkbox, FormControlLabel, Divider, Chip  } from '@mui/material';
 import Header from '../component/Header';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import Fade from '@mui/material/Fade';
-import GoogleIcon from '@mui/icons-material/Google';
-import FacebookIcon from '@mui/icons-material/Facebook';
-import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import discount from '../img/freepik/discount.jpg';
+import GoogleImg from '../img/flaticon/google.png';
+import FacebookImg from '../img/flaticon/facebook.png';
+import LineImg from '../img/flaticon/line.png';
+import WechatImg from '../img/flaticon/wechat.png';
+import InstaImg from '../img/flaticon/instagram.png';
 import { Link } from 'react-router-dom';
+import Image from '../component/Image';
+import CustomTypo from '../component/CustomTypo';
 
 const SignUp = () => {
 
@@ -47,6 +52,16 @@ const SignUp = () => {
         ]
     })
 
+    const [body] = useState({
+        Images : [
+            {
+                image: discount,
+                imageText: 'main image description',
+                marginTop: '10%'
+            }
+        ]
+    })
+
     return(
         <>
             <Header info={header}/>
@@ -73,12 +88,12 @@ const SignUp = () => {
                         }}
                         direction="column"
                     >
-                        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                            <PersonAddIcon />
-                        </Avatar>
-                        <Typography component="h1" variant="h5">
-                            Sign Up
-                        </Typography>
+                        <Grid container justifyContent="center" spacing={2}>
+                            <Grid item xs={12} md={12}>
+                                <Image info={body.Images} />
+                            </Grid>
+                        </Grid>
+                        <CustomTypo variant="h3" mVariant="h5" color="primary.main" content="Sign Up" align="center"/>
                     </Stack>
                     <Stack 
                         component="form"
@@ -95,8 +110,6 @@ const SignUp = () => {
                     >
                         <TextField fullWidth required label="Email" variant="filled" sx={{backgroundColor:"white"}}/>
                         {/* Note: Username will be auto generated to reduce the textfield required to be field. Example: userID + random Number */}
-                        <TextField fullWidth required label="Mobile Number" variant="filled" sx={{backgroundColor:"white"}}/>
-                        <TextField fullWidth required label="Email" variant="filled" sx={{backgroundColor:"white"}}/>
                         <TextField fullWidth required label="Password" type="password" variant="filled" sx={{backgroundColor:"white"}}/>
                         <TextField fullWidth required label="Repeat Password" type="password" variant="filled" sx={{backgroundColor:"white"}}/>
                         
@@ -115,34 +128,40 @@ const SignUp = () => {
                                 autoFocus
                                 />
                             <Button variant="outlined" onClick={handleClick(Fade)}>
-                                OTP Request
+                                Request OTP
                             </Button>
                         </Stack>
                         <FormControlLabel
                             control={<Checkbox value="remember" color="primary" />}
                             label="I acknowledge that I have read, consent and agree to AccessReal Terms of Service and Privacy Policy"
                         />
-                        <Button fullWidth variant="outlined" onClick={handleClick(Fade)}>
+                        <Button fullWidth variant="contained" onClick={handleClick(Fade)}>
                             Sign Up
                         </Button>
                         <Divider>
-                            <Chip label="Or" />
+                            <Chip label="Or" sx={{backgroundColor:'transparent', width:'50px', height:'50px', '& .MuiChip-label': { fontSize: 18, fontWeight:'bold' }}}/>
                         </Divider>
-
-                        <Grid container 
-                            sx={{
-                                display: 'flex',
-                                flexDirection: 'column',
-                                alignItems: 'center',
-                            }}
-                        >
+                       
+                        <Grid container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                             <Grid item>
-                                <IconButton color="primary" aria-label="upload picture" component="span" sx={{padding:'10px'}}>
-                                    <GoogleIcon />
+                                <IconButton>
+                                    <Avatar src={GoogleImg} sx={{width:'50px', height:'50px'}}/>
                                 </IconButton>
-                                <IconButton color="primary" aria-label="upload picture" component="span" sx={{padding:'10px'}}>
-                                    <FacebookIcon />
+                                <IconButton>
+                                    <Avatar src={FacebookImg} sx={{width:'50px', height:'50px'}}/>
                                 </IconButton>
+                                <IconButton>
+                                    <Avatar src={LineImg} sx={{width:'50px', height:'50px'}}/>
+                                </IconButton>
+                                <IconButton>
+                                    <Avatar src={WechatImg} sx={{width:'50px', height:'50px'}}/>
+                                </IconButton>
+                                <IconButton>
+                                    <Avatar src={InstaImg} sx={{width:'50px', height:'50px'}}/>
+                                </IconButton>
+                            </Grid>
+                            <Grid item sx={{padding: '5%'}}>
+                                <CustomTypo variant="body1" mVariant="body1" color="primary.main" content="Sign up for an account before? Login" size="1.1rem" component={Link} to={`/Login`}/>
                             </Grid>
                         </Grid>
                     </Stack>

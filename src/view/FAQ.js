@@ -1,10 +1,11 @@
 import { useState, React } from 'react';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { Accordion, AccordionSummary, AccordionDetails, IconButton, Typography, Box, FormControl, InputLabel, Select, MenuItem, Container } from '@mui/material';
+import { Accordion, AccordionSummary, AccordionDetails, IconButton, Box, FormControl, InputLabel, Select, MenuItem, Container } from '@mui/material';
 import Header from '../component/Header';
 import Footer from '../component/Footer';
 import { Link } from 'react-router-dom';
+import CustomTypo from '../component/CustomTypo';
 
 const FAQ = () => {
     const [header] = useState({
@@ -50,8 +51,7 @@ const FAQ = () => {
         ],
         Footer: [
             {   
-                content: 
-                    <Typography sx={{color:"primary.inverted", flexGrow: 1}} variant="caption" display="block" align="center">Powered by i-Sprint</Typography>
+                content: <CustomTypo variant="subtitle1" mVariant="body2" color="primary.inverted" content="Powered by i-Sprint" align="center"/>
             }
         ]
     })
@@ -91,12 +91,10 @@ const FAQ = () => {
                         {body.Accordion.map((info,index) => (
                             <Accordion key={index} expanded={expanded === 'panel' + index} onChange={handleChangePanel('panel'+index)} sx={{backgroundColor:"transparent"}}>
                                 <AccordionSummary expandIcon={<ExpandMoreIcon />} id={index}>
-                                    <Typography variant='body1' sx={{color:"primary.main"}}>{info.title}</Typography>
+                                    <CustomTypo variant="h6" mVariant="body2" bold color="primary.main" content={info.title} />
                                 </AccordionSummary>
                                 <AccordionDetails>
-                                    <Typography variant='body2' sx={{color:"primary.main"}}>
-                                    {info.content}
-                                    </Typography>
+                                    <CustomTypo variant="subtitle1" mVariant="body2" color="primary.main" content={info.content} />
                                 </AccordionDetails>
                             </Accordion>
                         ))}

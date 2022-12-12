@@ -1,12 +1,13 @@
 import { useState, React } from 'react';
-import { IconButton, Grid, Container, Typography, Box, Snackbar, Alert, TextField, Stack, Avatar, Button, Divider  } from '@mui/material';
+import { IconButton, Grid, Container, Snackbar, Alert, TextField, Stack, Button  } from '@mui/material';
 import Header from '../component/Header';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import Fade from '@mui/material/Fade';
-import LockResetIcon from '@mui/icons-material/LockReset';
+import confused from '../img/freepik/confused.jpg';
 import { Link } from 'react-router-dom';
-import { setLoginInfo } from '../redux/setting';
 import { useSelector } from 'react-redux';
+import Image from '../component/Image';
+import CustomTypo from '../component/CustomTypo';
 
 const ResetPassword = () => {
 
@@ -46,6 +47,16 @@ const ResetPassword = () => {
         ]
     })
 
+    const [body] = useState({
+        Images : [
+            {
+                image: confused,
+                imageText: 'main image description',
+                marginTop: '10%'
+            }
+        ]
+    })
+
     return(
         <>
             <Header info={header}/>
@@ -74,12 +85,12 @@ const ResetPassword = () => {
                                 }}
                                 direction="column"
                             >
-                                <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                                    <LockResetIcon />
-                                </Avatar>
-                                <Typography component="h1" variant="h5">
-                                    Reset Password
-                                </Typography>
+                                 <Grid container justifyContent="center" spacing={2} sx={{paddingBottom:'5%'}}>
+                                    <Grid item xs={12} md={12}>
+                                        <Image info={body.Images} />
+                                    </Grid>
+                                </Grid>
+                                <CustomTypo variant="h4" mVariant="h5" color="primary.main" content="Reset Password" align="center"/>
                             </Stack>
                         : null
                     }
@@ -98,8 +109,12 @@ const ResetPassword = () => {
                     >
                         {
                             setting.loginInfo != "login" ?
-                                <TextField fullWidth required label="Email / User Id" variant="filled" sx={{backgroundColor:"white"}}/>
-                            : null
+                                <TextField fullWidth required label="Email" variant="filled" sx={{backgroundColor:"white"}}/> : 
+                                <Grid container justifyContent="center" spacing={2}>
+                                    <Grid item xs={12} md={12}>
+                                        <Image info={body.Images} />
+                                    </Grid>
+                                </Grid>
                         }
                         {/* Note: Username will be auto generated to reduce the textfield required to be field. Example: userID + random Number */}
                         <TextField fullWidth required label="New Password" type="password" variant="filled" sx={{backgroundColor:"white"}}/>
@@ -120,10 +135,10 @@ const ResetPassword = () => {
                                 autoFocus
                                 />
                             <Button variant="outlined" onClick={handleClick(Fade)}>
-                                Email OTP Request
+                                Request OTP
                             </Button>
                         </Stack>
-                        <Button fullWidth variant="outlined" onClick={handleClick(Fade)}>
+                        <Button fullWidth variant="contained" onClick={handleClick(Fade)}>
                             Reset Password
                         </Button>
                     </Stack>

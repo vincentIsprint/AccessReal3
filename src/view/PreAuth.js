@@ -1,6 +1,6 @@
 import { useState, useEffect, React } from 'react';
 import HelpIcon from '@mui/icons-material/Help';
-import { IconButton, Grid, Container, Typography, Button, Box, Stack } from '@mui/material';
+import { IconButton, Grid, Container, Button, Box, Stack } from '@mui/material';
 import Header from '../component/Header';
 import Footer from '../component/Footer';
 import Image from '../component/Image';
@@ -10,6 +10,7 @@ import CachedIcon from '@mui/icons-material/Cached';
 import AR_Img from '../img/AR.png';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import CustomTypo from '../component/CustomTypo';
 
 const Loading = () => {
     const setting = useSelector((state)=>state.setting)
@@ -40,8 +41,7 @@ const Loading = () => {
         ],      
         Footer: [
             {   
-                content: 
-                    <Typography sx={{color:"primary.inverted", flexGrow: 1}} variant="caption" display="block" align="center">Powered by i-Sprint</Typography>
+                content: <CustomTypo variant="subtitle1" mVariant="body2" color="primary.inverted" content="Powered by i-Sprint" align="center"/>
             }
         ]
     })
@@ -90,9 +90,7 @@ const Loading = () => {
                                     justifyContent: 'center',
                                 }}
                             >
-                                <Typography variant="caption" component="div" sx={{color:"primary.main"}}>
-                                {`${Math.round(progress)}%`}
-                                </Typography>
+                                <CustomTypo variant="subtitle1" mVariant="caption" color="primary.main" content={`${Math.round(progress)}%`}/>
                             </Box>
                         </Box>
                         <Button component={Link} to={`/ProductInfo`}> Manual Proceed </Button>
@@ -127,14 +125,15 @@ const Loading = () => {
                 <Container sx={{paddingTop:'10%'}}>
                     <Grid container justifyContent="center" spacing={2}>
                         <Grid item xs={12} md={12}>
-                            <Typography sx={{color:"primary.main",flexGrow: 1}} align='center' variant="body1" display="block" >
-                                {
+                            <CustomTypo variant="subtitle1" mVariant="body1" color="primary.main" 
+                                content={
                                     setting.preAuth === "loading" ? `System is loading required files. Please wait.` :
                                     setting.preAuth === "auth" ? `Failed to authenticate the product. The QR code you have scanned is not activated.` :
                                     setting.preAuth === "timeout" ? `There seems to be a problem with your internet connection. Please to reload the browser again.` :
                                     setting.preAuth === "browser" ? `This device or browser does not support the online web authentication. Please use safari (13.x or above) on iPhone or chrome (70.x or above) on Android` : null
-                                }
-                            </Typography>
+                                } 
+                                align="center"
+                            />
                         </Grid>
                     </Grid>
                 </Container>

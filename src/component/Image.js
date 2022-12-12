@@ -50,19 +50,19 @@ function Image(props) {
                 sx={{
                   position: 'relative',
                   [theme.breakpoints.between(200,399)]: { 
-                    width: step.width !=null ? step.width : '200px',
+                    maxWidth: step.width !=null ? step.width : '200px',
                     height: step.height !=null ? step.height : '200px',
                   },
                   [theme.breakpoints.between(400,'sm')]: { 
-                    width: step.width !=null ? step.width : '350px',
+                    maxWidth: step.width !=null ? step.width : '350px',
                     height: step.height !=null ? step.height : '350px',
                   },
                   [theme.breakpoints.between('sm','xl')]: { 
-                    width: step.width !=null ? step.width : '400px',
+                    maxWidth: step.width !=null ? step.width : '400px',
                     height: step.height !=null ? step.height : '400px',
                   },
                   [theme.breakpoints.up('xl')]: { 
-                    width: step.width !=null ? step.width : '400px',
+                    maxWidth: step.width !=null ? step.width : '400px',
                     height: step.height !=null ? step.height : '400px',
                   },
                   height: step.height !=null ? step.height : '100%',

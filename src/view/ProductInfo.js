@@ -1,13 +1,12 @@
 import { useState, React } from 'react';
-import { IconButton, Grid, Box, Container, Typography, Stack, Chip, Fade, Snackbar, Alert } from '@mui/material';
-import {Timeline} from '@mui/lab';
+import { IconButton, Grid, Container, Stack, Chip, Fade, Snackbar, Alert } from '@mui/material';
 import HelpIcon from '@mui/icons-material/Help';
 import QrCodeSharpIcon from '@mui/icons-material/QrCodeSharp';
 import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
 import Header from '../component/Header';
 import Footer from '../component/Footer';
 import Image from '../component/Image';
-import ProductTimeline from '../component/ProductTimeline';
+import CustomList from '../component/CustomList';
 import CodeOutlinedIcon from '@mui/icons-material/CodeOutlined';
 import DeveloperModeOutlinedIcon from '@mui/icons-material/DeveloperModeOutlined';
 import similac from '../img/similac.png';
@@ -19,14 +18,15 @@ import { Link } from 'react-router-dom';
 import CloudDownloadIcon from '@mui/icons-material/CloudDownload';
 import PopupDialog from '../component/PopupDialog';
 import ownershipcard from '../img/owner.png';
+import CustomTypo from '../component/CustomTypo';
 
 const ProductInfo = () => {
 
-    // QR Code Status Controller in footer
+    // QR Code Status in footer
     // 1. success
     // 2. fail
     // 3. verify
-    // 4. history -> to return back to history page
+
     const setting = useSelector((state)=>state.setting)
     
     const theme = useTheme();
@@ -45,39 +45,19 @@ const ProductInfo = () => {
             }
         ]
     })
-
+    function createTimeline(subtitle, description) {
+        return { subtitle, description };
+    }
     const [body] = useState({
         Timeline : [
             {
-                Rtitle: 'Expiration Date',
-                Rdescription:'2022-04',
-                color: 'primary.inverted'
+                title: 'Product Information'
             },
-            {
-                Rtitle: 'Company Name',
-                Rdescription:'i-Sprint',
-                color: 'primary.inverted'
-            },
-            {
-                Rtitle: 'Company Address',
-                Rdescription:'750D Chai Chee Rd, Singapore 469004',
-                color: 'primary.inverted'
-            },
-            {
-                Rtitle: 'Website',
-                Rdescription:'www.i-sprint.com',
-                color: 'primary.inverted'
-            },
-            {
-                Rtitle: 'Links',
-                Rdescription:'Q&A Link',
-                color: 'primary.inverted'
-            },
-            {
-                Rtitle: 'Distribution Country',
-                Rdescription:'USA',
-                color: 'primary.inverted'
-            }
+            createTimeline('Company Name','i-Sprint'),
+            createTimeline('Company Address','750D Chai Chee Rd, Singapore 469004'),
+            createTimeline('Website','www.i-sprint.com'),
+            createTimeline('Links','Q&A Link'),
+            createTimeline('Distribution Country','USA')
         ],
         Images : [
             {
@@ -174,39 +154,19 @@ const ProductInfo = () => {
                 key={state.Transition.name}
             >
                 <Alert severity="success">Copied To Clipboard</Alert>
-            </Snackbar>
-            <Grid container justifyContent="center" spacing={2}>
-                <Grid item xs={12} md={12}>
-                    {   body.Images != null ?  <Image info={body.Images} /> : null }
-                </Grid>
-            </Grid>
-    
+            </Snackbar>    
             <Container>
                 <Grid container justifyContent="left" spacing={2}>
+                    <Grid item xs={12} md={12}>
+                        {   body.Images != null ?  <Image info={body.Images} /> : null }
+                    </Grid>
                     <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
-                        <Typography variant='h5' sx={{color: body.TimelineTitle[0].color }}>
-                            Lashaddict Major Extensions Mascara 
-                        </Typography>
+                        <CustomTypo variant="h4" mVariant="h5" color={body.TimelineTitle[0].color} content="Lashaddict Major Extensions Mascara"/>
                         {
                             setting.productInfo === "verify" ? null :
                             <Stack direction="row" spacing={1} sx={{paddingTop:'1%'}}>
                                 <VerifiedUserIcon fontSize="small" color="authenticated"/>
-                                <Typography variant='caption' 
-                                    sx={{
-                                        color: body.TimelineTitle[0].color, 
-                                        [theme.breakpoints.between(200,399)]: { 
-                                            fontSize: '0.75rem'
-                                        },
-                                        [theme.breakpoints.between(400,'xl')]: { 
-                                            fontSize: '1rem'
-                                        },
-                                        [theme.breakpoints.up('xl')]: { 
-                                            fontSize: '1.2rem'
-                                        },
-                                    }}
-                                >
-                                    Authenticated on 21 June 2022
-                                </Typography>
+                                <CustomTypo variant="h5" mVariant="body1" color={body.TimelineTitle[0].color} content="Authenticated on 21 June 2022"/>
                             </Stack>
                         }
                         <Stack direction="row" spacing={2} sx={{paddingTop:'2%',paddingBottom:'5%'}}>
@@ -224,17 +184,7 @@ const ProductInfo = () => {
                
             {
                 body.Timeline != null ? 
-                <Box sx={{backgroundColor:"secondary.main", borderRadius: "15px 15px 15px 15px"}}>
-                    <Timeline position="alternate" sx={{margin:"0px"}}>
-                        {body.Timeline.map((info,index) => (
-                            <Grid key={index} container justifyContent="center">
-                                <Grid item xs={12} md={12}>
-                                    <ProductTimeline key={index} info={info} />
-                                </Grid>
-                            </Grid>
-                        ))}
-                    </Timeline>
-                </Box>
+                    <CustomList info={body.Timeline}/>
                 : null
             }
 

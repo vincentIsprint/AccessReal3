@@ -1,23 +1,24 @@
-import { useState, React, useEffect } from 'react';
-import { IconButton, Grid, Container, Typography, Box, Snackbar, Alert, TextField, Fab, styled, Stack, Avatar, Button, Checkbox, FormControlLabel, Divider, Chip  } from '@mui/material';
+import { useState, React } from 'react';
+import { IconButton, Grid, Container, Snackbar, Alert, TextField, Stack, Avatar, Button, Divider, Chip  } from '@mui/material';
 import Header from '../component/Header';
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import Fade from '@mui/material/Fade';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import GoogleIcon from '@mui/icons-material/Google';
-import FacebookIcon from '@mui/icons-material/Facebook';
-import qrcode from '../img/qr.jpg';
-import HelpIcon from '@mui/icons-material/Help';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setLoginInfo } from '../redux/setting';
+import Image from '../component/Image';
+import tourist from '../img/freepik/tourist.jpg';
+import GoogleImg from '../img/flaticon/google.png';
+import FacebookImg from '../img/flaticon/facebook.png';
+import LineImg from '../img/flaticon/line.png';
+import WechatImg from '../img/flaticon/wechat.png';
+import InstaImg from '../img/flaticon/instagram.png';
+import CustomTypo from '../component/CustomTypo';
 
 const Login = () => {
 
     // Sign Up Type
-    // 1. ownership card login (promoting)
-    // 2. email
-    // 3. phone number
+    // 1. email
+    // 2. phone number
     // 3. google / facebook
     let navigate = useNavigate();
     const [state, setState] = useState({
@@ -41,11 +42,6 @@ const Login = () => {
 
     const dispatch = useDispatch();
 
-    const handleQRLogin = () => {
-        dispatch(setLoginInfo({loginInfo: 'login'}))
-        navigate("/Scan");
-    }
-
     const handleLogin = () => {
         dispatch(setLoginInfo({loginInfo: 'login'}))
         navigate("/Voucher");
@@ -54,16 +50,19 @@ const Login = () => {
     const [header] = useState({
         Item : [
             {   
-                rightcontent: 
-                    <IconButton size="large" edge="end" sx={{color:"primary.main"}} 
-                        component={Link} to={`/Help_Login`}
-                    >
-                        <HelpIcon />
-                    </IconButton>
+                rightcontent: null
             }
         ]
     })
-
+    const [body] = useState({
+        Images : [
+            {
+                image: tourist,
+                imageText: 'main image description',
+                marginTop: '10%'
+            }
+        ]
+    })
     return(
         <>
             <Header info={header}/>
@@ -90,93 +89,55 @@ const Login = () => {
                             alignItems: 'center',
                         }}
                     >
-                        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                            <LockOutlinedIcon />
-                        </Avatar>
-                        <Typography component="h1" variant="h5">
-                            Login
-                        </Typography>
+                        
+                        <Grid container justifyContent="center" spacing={2}>
+                            <Grid item xs={12} md={12}>
+                                <Image info={body.Images} />
+                            </Grid>
+                        </Grid>
+                        <CustomTypo variant="h3" mVariant="h5" color="primary.main" content="Login" align="center"/>
                     </Stack>
-                    <Grid container spacing={0} direction="column" alignItems="center" justifyContent="center" sx={{paddingTop:'5%'}}>
-                        <Grid item xs={3}>
-                            <Button  
-                                sx={{
-                                        backgroundImage: `url(${qrcode})`,
-                                        backgroundRepeat: 'no-repeat', 
-                                        backgroundPosition: 'center',
-                                        backgroundSize: 'contain',
-                                        width: 200,
-                                        height: 200,
-                                        borderColor: 'primary.main',
-                                        borderWidth: '5px',
-                                        borderStyle: 'solid',
-                                        '&:hover': {
-                                            borderColor: 'secondary.main',
-                                            opacity: [0.9, 0.8, 0.7],
-                                        }, 
-                                    }}
-                                    onClick={handleQRLogin}
-                            />
-                        </Grid>   
-                    </Grid> 
-                    <Stack 
-                        component="form"
-                        sx={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'left',
-                            paddingTop:'5%',
-                            mt: 1
-                        }}
+                    <Stack component="form" sx={{ display: 'flex', flexDirection: 'column', alignItems: 'left', paddingTop:'5%', mt: 1 }}
                         spacing={2}
                         noValidate
                         autoComplete="off"
                     >
-                        <TextField fullWidth required label="Email / User Id" variant="filled" sx={{backgroundColor:"white"}}/>
+                        <TextField fullWidth required label="Email" variant="filled" sx={{backgroundColor:"white"}}/>
                         <TextField fullWidth required label="Password" type="password" variant="filled" sx={{backgroundColor:"white"}}/>
-                        <FormControlLabel
-                            control={<Checkbox value="remember" color="primary" />}
-                            label="Remember me"
-                        />
-                        <Button fullWidth variant="outlined" 
-                            onClick={handleLogin}
-                        >
-                            Login
-                        </Button>
                         <Grid container>
                             <Grid item xs>
-                                <Button href="#" variant="body2" 
-                                    component={Link} to={`/ResetPassword`}
-                                >
-                                    Forgot password?
-                                </Button>
                             </Grid>
                             <Grid item>
-                                <Button href="#" variant="body2"
-                                    component={Link} to={`/SignUp`}
-                                >
-                                    Sign Up
-                                </Button>
+                                <CustomTypo variant="body1" mVariant="body1" color="primary.main" content="Forgot password?" size="1.1rem" component={Link} to={`/ResetPassword`}/>
                             </Grid>
                         </Grid>
+                        <Button fullWidth variant="contained" onClick={handleLogin}>
+                            Login
+                        </Button>
                         <Divider>
-                            <Chip label="Or" />
+                            <Chip label="Or" sx={{backgroundColor:'transparent', width:'50px', height:'50px', '& .MuiChip-label': { fontSize: 18, fontWeight:'bold' }}}/>
                         </Divider>
-
-                        <Grid container 
-                            sx={{
-                                display: 'flex',
-                                flexDirection: 'column',
-                                alignItems: 'center',
-                            }}
-                        >
+                       
+                        <Grid container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                             <Grid item>
-                                <IconButton color="primary" aria-label="upload picture" component="span" sx={{padding:'10px'}}>
-                                    <GoogleIcon />
+                                <IconButton>
+                                    <Avatar src={GoogleImg} sx={{width:'50px', height:'50px'}}/>
                                 </IconButton>
-                                <IconButton color="primary" aria-label="upload picture" component="span" sx={{padding:'10px'}}>
-                                    <FacebookIcon />
+                                <IconButton>
+                                    <Avatar src={FacebookImg} sx={{width:'50px', height:'50px'}}/>
                                 </IconButton>
+                                <IconButton>
+                                    <Avatar src={LineImg} sx={{width:'50px', height:'50px'}}/>
+                                </IconButton>
+                                <IconButton>
+                                    <Avatar src={WechatImg} sx={{width:'50px', height:'50px'}}/>
+                                </IconButton>
+                                <IconButton>
+                                    <Avatar src={InstaImg} sx={{width:'50px', height:'50px'}}/>
+                                </IconButton>
+                            </Grid>
+                            <Grid item sx={{padding: '5%'}}>
+                                <CustomTypo variant="body1" mVariant="body1" color="primary.main" content="New to AccessReal? Register" size="1.1rem" component={Link} to={`/SignUp`}/>
                             </Grid>
                         </Grid>
                     </Stack>

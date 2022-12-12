@@ -1,36 +1,16 @@
 import { useState, React } from 'react';
-import { IconButton, Grid, Container, Typography, Box, Snackbar, Alert, TextField, Stack, Avatar, Button, Paper, List, ListSubheader, ListItem, ListItemIcon, Switch, ListItemText, Divider } from '@mui/material';
+import { Container, List, ListItem, ListItemIcon, ListItemText, Divider } from '@mui/material';
 import Header from '../component/Header';
 import Footer from '../component/Footer';
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import Fade from '@mui/material/Fade';
-import PersonIcon from '@mui/icons-material/Person';
 import { Link } from 'react-router-dom';
-import { Book, BookOnline, DeveloperMode, Feedback, LanguageOutlined, Password, SupervisedUserCircleOutlined } from '@mui/icons-material';
+import { Book, BookOnline, Feedback, LanguageOutlined, Password } from '@mui/icons-material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import PopupDialog from '../component/PopupDialog';
+import CustomTypo from '../component/CustomTypo';
 
 const Setting = () => {
-
-    const [state, setState] = useState({
-        open: false,
-        Transition: Fade,
-    });
-
-    const handleClick = (Transition) => () => {
-        setState({
-          open: true,
-          Transition,
-        });
-    };
-
-    const handleClose = () => {
-        setState({
-          ...state,
-          open: false,
-        });
-    };
 
     const [header] = useState({
         Item : [
@@ -93,7 +73,7 @@ const Setting = () => {
                             <ListItemIcon>
                                 <AccountCircleIcon />
                             </ListItemIcon>
-                            <ListItemText primary="Personal Information" />
+                            <ListItemText primary={<CustomTypo variant="h6" mVariant="body2" color="primary.main" content="Personal Information" align="left"/>} />
                             <ArrowForwardIosIcon />
                         </ListItem>
                         <Divider />
@@ -101,7 +81,7 @@ const Setting = () => {
                             <ListItemIcon>
                                 <LanguageOutlined />
                             </ListItemIcon>
-                            <ListItemText primary="Language Translation" />
+                            <ListItemText primary={<CustomTypo variant="h6" mVariant="body2" color="primary.main" content="Language Translation" align="left"/>} />
                             <ArrowForwardIosIcon />
                         </ListItem>
                         <Divider />
@@ -109,7 +89,7 @@ const Setting = () => {
                             <ListItemIcon>
                                 <Password />
                             </ListItemIcon>
-                            <ListItemText primary="Reset Password" />
+                            <ListItemText primary={<CustomTypo variant="h6" mVariant="body2" color="primary.main" content="Reset Password" align="left"/>} />
                             <ArrowForwardIosIcon />
                         </ListItem>
                         <Divider />
@@ -117,7 +97,7 @@ const Setting = () => {
                             <ListItemIcon>
                                 <Feedback />
                             </ListItemIcon>
-                            <ListItemText primary="Write Us A Feedback" />
+                            <ListItemText primary={<CustomTypo variant="h6" mVariant="body2" color="primary.main" content="Write Us An Feedback" align="left"/>} />
                             <ArrowForwardIosIcon />
                         </ListItem>
                         <Divider />
@@ -125,7 +105,7 @@ const Setting = () => {
                             <ListItemIcon>
                                 <BookOnline />
                             </ListItemIcon>
-                            <ListItemText primary="Term Of Service" />
+                            <ListItemText primary={<CustomTypo variant="h6" mVariant="body2" color="primary.main" content="Term of Service" align="left"/>} />
                             <ArrowForwardIosIcon />
                         </ListItem>
                         <Divider />
@@ -133,23 +113,28 @@ const Setting = () => {
                             <ListItemIcon>
                                 <Book />
                             </ListItemIcon>
-                            <ListItemText primary="Privacy Policy" />
+                            <ListItemText primary={<CustomTypo variant="h6" mVariant="body2" color="primary.main" content="Privacy Policy" align="left"/>} />
                             <ArrowForwardIosIcon />
                         </ListItem>
                         <Divider />
                         <ListItem>
                             <ListItemIcon>
-                                <DeveloperMode />
+                                <Book />
                             </ListItemIcon>
-                            <ListItemText primary="Demo Switch" />
-                            <Switch
-                                edge="end"
-                                // onChange={handleToggle('wifi')}
-                                // checked={checked.indexOf('wifi') !== -1}
-                                inputProps={{
-                                    'aria-labelledby': 'switch-list-label-wifi',
-                                }}
-                            />
+                            <ListItemText primary={<CustomTypo variant="h6" mVariant="body2" color="primary.main" content="Licenses" align="left"/>} />
+                               {/* Image by <a href="https://www.freepik.com/free-vector/local-tourism-illustration_8934044.htm?query=surfing%20sea#from_view=detail_alsolike">Freepik</a> */}
+                               {/* <a href="https://www.freepik.com/free-vector/shrug-concept-illustration_24237566.htm#query=confused&position=3&from_view=search&track=sph">Image by storyset</a> on Freepik */}
+                               {/* <a href="https://www.freepik.com/free-vector/tiny-male-female-characters-standing-near-arrow-down-showing-percentage-decrease-financial-reduction-flat-vector-illustration-low-rate-special-offer-loan-discount-price-concept_23548198.htm#query=interested&position=17&from_view=search&track=sph">Image by pch.vector</a> on Freepik */}
+                               {/* <a href="https://www.freepik.com/free-vector/dizzy-face-concept-illustration_24237641.htm?query=reset#from_view=detail_alsolike">Image by storyset</a> on Freepik */}
+                               
+                               {/* <a href="https://www.flaticon.com/free-icons/times-square" title="times-square icons">Times-square icons created by Bharat Icons - Flaticon</a> */}
+                               {/* <a href="https://www.flaticon.com/free-icons/tick" title="tick icons">Tick icons created by Icon Hubs - Flaticon</a> */}
+                               {/* <a href="https://www.flaticon.com/free-icons/google" title="google icons">Google icons created by Freepik - Flaticon</a> */}
+                               {/* <a href="https://www.flaticon.com/free-icons/facebook" title="facebook icons">Facebook icons created by Freepik - Flaticon</a> */}
+                               {/* <a href="https://www.flaticon.com/free-icons/instagram" title="instagram icons">Instagram icons created by Pixel perfect - Flaticon</a> */}
+                               {/* <a href="https://www.flaticon.com/free-icons/wechat" title="wechat icons">Wechat icons created by Rakib Hassan Rahim - Flaticon</a> */}
+                               {/* <a href="https://www.flaticon.com/free-icons/line" title="line icons">Line icons created by riajulislam - Flaticon</a> */}
+                            <ArrowForwardIosIcon />
                         </ListItem>
                         <Divider />
                     </List>

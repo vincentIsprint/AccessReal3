@@ -1,8 +1,9 @@
 import { useState, useRef, useEffect, React  } from 'react';
-import { DialogTitle, DialogContent, DialogActions, Dialog, RadioGroup, Radio, Button, FormControlLabel, DialogContentText, FormControl, FormLabel, FormGroup, Checkbox, Select, MenuItem, InputLabel} from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
+import { DialogTitle, DialogContent, DialogActions, Dialog, RadioGroup, Radio, Button, FormControlLabel, Stack} from '@mui/material';
+import { useDispatch } from 'react-redux';
 import { setAuth, setProductInfo, setLoginInfo } from '../redux/setting';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import CustomTypo from './CustomTypo';
 
 function PopupDialog(props) {
     
@@ -38,6 +39,8 @@ function PopupDialog(props) {
 
     };
 
+    const navigate = useNavigate();
+
     //start redux
     const [ preAuthValue, setPreAuthValue ] = useState('');
     const [ productInfoValue, setProductInfoValue ] = useState('');
@@ -46,28 +49,51 @@ function PopupDialog(props) {
     const dispatch = useDispatch();
 
     //redux tutorial: https://www.youtube.com/watch?v=iBUJVy8phqw
-    const handleChangePreAuth = (event) => {
-        setPreAuthValue(event.target.value)
+    function updatePreAuth(value) {
+        setPreAuthValue(value)
         dispatch(setAuth({
-            preAuth: event.target.value
+            preAuth: value
         }))
-    };
+        navigate('/');
+    }
 
-    const handleChangeProductInfo = (event) => {
-        setProductInfoValue(event.target.value)
+    function updateProductInfo(value) {
+        setProductInfoValue(value)
         dispatch(setProductInfo({
-            productInfo: event.target.value
+            productInfo: value
         }))
-    };
-
-    const handleChangeLoginInfo = (event) => {
-        setLoginValue(event.target.value)
+        setLoginValue("logout")
         dispatch(setLoginInfo({
-            loginInfo: event.target.value
+            loginInfo: "logout"
         }))
-    };
+        navigate('/ProductInfo');
+    }
+
+    function updateProductInfoHelp(value) {
+        setProductInfoValue(value)
+        dispatch(setProductInfo({
+            productInfo: value
+        }))
+        setLoginValue("logout")
+        dispatch(setLoginInfo({
+            loginInfo: "logout"
+        }))
+        navigate('/Help');
+    }
+
+    function updateLoginInfo(value) {
+        setLoginValue(value)
+        dispatch(setLoginInfo({
+            loginInfo: value
+        }))
+
+        if(value == 'login')
+            navigate('/Login')
+        else if(value == "signup")
+            navigate('/SignUp')
+    }
     //end redux
-    
+
     return (
         <Dialog sx={{ '& .MuiDialog-paper': { width: '100%'} }} maxWidth="xs" TransitionProps={{ onEntering: handleEntering }} onClose={handleCancel} open={open} {...other} >
             <DialogTitle>{valueProp.title != null ? valueProp.title : null}</DialogTitle>
@@ -90,38 +116,59 @@ function PopupDialog(props) {
                 {/* Developer Options */}
                 { valueProp.devOption ?
                     <>
-                        <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
-                            <FormLabel component="legend">PreAuth</FormLabel>
-                            <Select value={preAuthValue} onChange={handleChangePreAuth}>
-                                <MenuItem value={""}>None</MenuItem>
-                                <MenuItem value={"timeout"}>Connection Timeout</MenuItem>
-                                <MenuItem value={"auth"}>Authentication Failed</MenuItem>
-                                <MenuItem value={"browser"}>Unsupported Browser</MenuItem>
-                                <MenuItem value={"loading"}>Loading</MenuItem>
-                            </Select>
-                        </FormControl>
-                        <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
-                            <FormLabel component="legend">Product Info</FormLabel>
-                            <Select value={productInfoValue} onChange={handleChangeProductInfo}>
-                                <MenuItem value={""}>None</MenuItem>
-                                <MenuItem value={"success"}>Success</MenuItem>
-                                <MenuItem value={"failed"}>Failed</MenuItem>
-                                <MenuItem value={"verify"}>Verify</MenuItem>
-                                <MenuItem value={"history"}>History</MenuItem>
-                            </Select>
-                        </FormControl>
-                        <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
-                            <FormLabel component="legend">Login Status</FormLabel>
-                            <Select value={loginValue} onChange={handleChangeLoginInfo}>
-                                <MenuItem value={""}>None</MenuItem>
-                                <MenuItem value={"login"}>Login</MenuItem>
-                                <MenuItem value={"logout"}>Logout</MenuItem>
-                            </Select>
-                        </FormControl>
-                        <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
-                            <Button component={Link} to={`/`}> Restart </Button>
-                            <Button component={Link} to={`/Login`}> Login </Button>
-                        </FormControl>
+                        <Stack direction="column" spacing={2}>
+                            <CustomTypo variant="body1" mVariant="body2" color="primary.main" content="PreAuth"/>
+                            <Stack direction="row" spacing={2}>
+                                <Button variant="contained" onClick={() => updatePreAuth("timeout")}>
+                                    Time Out
+                                </Button>
+                                <Button variant="contained" onClick={() => updatePreAuth("auth")}>
+                                    Auth Fail
+                                </Button>
+                            </Stack>
+                            <Stack direction="row" spacing={2}>
+                                <Button variant="contained" onClick={() => updatePreAuth("browser")}>
+                                    Unsupport Browser
+                                </Button>
+                                <Button variant="contained" onClick={() => updatePreAuth("loading")}>
+                                    Loading
+                                </Button>
+                            </Stack>
+
+                            <CustomTypo variant="body1" mVariant="body2" color="primary.main" content="Product Info"/>
+                            <Stack direction="row" spacing={2}>
+                                <Button variant="contained" onClick={() => updateProductInfo("success")}>
+                                    Success
+                                </Button>
+                                <Button variant="contained" onClick={() => updateProductInfo("failed")}>
+                                    Failed
+                                </Button>
+                                <Button variant="contained" onClick={() => updateProductInfo("verify")}>
+                                    Verify
+                                </Button>
+                            </Stack>
+                            <Stack direction="row" spacing={2}>
+                                <Button variant="contained" onClick={() => updateProductInfoHelp("success")}>
+                                    Success_Help
+                                </Button>
+                                <Button variant="contained" onClick={() => updateProductInfoHelp("failed")}>
+                                    Failed_Help
+                                </Button>
+                                <Button variant="contained" onClick={() => updateProductInfoHelp("verify")}>
+                                    Verify_Help
+                                </Button>
+                            </Stack>
+
+                            <CustomTypo variant="body1" mVariant="body2" color="primary.main" content="Login"/>
+                            <Stack direction="row" spacing={2}>
+                                <Button variant="contained" onClick={() => updateLoginInfo("login")}>
+                                    Login
+                                </Button>
+                                <Button variant="contained" onClick={() => updateLoginInfo("signup")}>
+                                    Sign Up
+                                </Button>
+                            </Stack>
+                        </Stack>
                     </>
                     : null
                 }

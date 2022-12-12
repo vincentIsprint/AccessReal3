@@ -1,5 +1,5 @@
 import { useState, React } from 'react';
-import { Box, Container, Grid, Fade, Snackbar, Alert, Chip, Stack, Paper, Avatar, Typography  } from '@mui/material';
+import { Box, Container, Grid, Fade, Snackbar, Alert, Chip, Stack, Paper, Avatar  } from '@mui/material';
 import Header from '../component/Header';
 import Footer from '../component/Footer';
 import Image from '../component/Image';
@@ -12,6 +12,7 @@ import VerifiedIcon from '@mui/icons-material/Verified';
 import { setLoginInfo } from '../redux/setting';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import CustomTypo from '../component/CustomTypo';
 
 const Redeem = () => {
 
@@ -122,10 +123,9 @@ const Redeem = () => {
                         <Grid container justifyContent="center" spacing={2}>
                             <Grid item xs={12} md={12}>
                                 <Paper sx={{borderRadius: "10px 10px 10px 10px"}}>
-                                    <Typography variant="h6" display="block" align="center" sx={{paddingTop:'5%'}}>
-                                        Collect 10 stamps to get 1 FREE voucher
-                                    </Typography>
-
+                                    <Box sx={{padding:'5%'}}>
+                                        <CustomTypo variant="h5" mVariant="h6" bold color="primary.main" content="Collect 10 stamps to get 1 FREE voucher" align="center"/>
+                                    </Box>
                                     <Stack sx={{padding:'2%'}} direction="row" spacing={1} alignItems="center" justifyContent="center">
                                         {Array.from(Array(3)).map((_, index) => (
                                             <Avatar key={index} sx={{ bgcolor: green[800] }}>
@@ -151,9 +151,9 @@ const Redeem = () => {
                                 </Paper>
                             </Grid>
                             <Grid item xs={12} md={12}>
-                                <Typography variant="h6" align="left" sx={{paddingTop:'5%'}}>
-                                        Products eligible for freebies:
-                                </Typography>
+                                <Box sx={{paddingTop:'5%', paddingBottom:'3%'}}>
+                                    <CustomTypo variant="h6" mVariant="body2" bold color="primary.main" content="Products eligible for freebies:" align="left"/>
+                                </Box>
 
                                 {chipData.map((data) => {
                                     return (
@@ -181,9 +181,9 @@ const Redeem = () => {
                                                     height: '150px', width: '150px',
                                                 }}
                                             />
-                                            <Typography variant="subtitle1" align="center" sx={{paddingBottom:'5%'}}>
-                                                {item.desc}
-                                            </Typography>
+                                            <Box sx={{paddingBottom:'3%'}}>
+                                                <CustomTypo variant="h6" mVariant="body2" bold color="primary.main" content={item.desc} align="center"/>
+                                            </Box>
                                         </Stack>
                                     </Paper>
                                 </Grid>
