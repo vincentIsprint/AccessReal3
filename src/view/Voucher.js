@@ -10,6 +10,9 @@ import SearchIcon from '@mui/icons-material/Search';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import TransferWithinAStationIcon from '@mui/icons-material/TransferWithinAStation';
 import PopupDialog from '../component/PopupDialog';
+import CustomTypo from '../component/CustomTypo';
+import CustomChip from '../component/CustomChip';
+import qr from '../img/qr.jpg';
 
 const Voucher = () => {
 
@@ -20,34 +23,15 @@ const Voucher = () => {
         }]
     })
 
-    const [state, setState] = useState({
-        open: false,
-        Transition: Fade,
-    });
-
-    const handleClickCopy = (Transition) => () => {
-        setState({
-          open: true,
-          Transition,
-        });
-    };
-    
-    const handleCloseCopy = () => {
-        setState({
-          ...state,
-          open: false,
-        });
-    };
-
     const [openTransfer, setOpenTransfer] = useState(false); 
 
     const [addTransfer, setTransfer] = useState({
-        title: "Enter Friend ID or Email Address",
+        title: "Transfer Voucher To A Friend",
         desc: 
             <Box sx={{ width: 500, maxWidth: '100%'}}>
-                <TextField fullWidth label="Example: daniel96@yahoo.com" />
+                <TextField fullWidth label="Example: 123456" />
             </Box>,
-        buttonName: "Transfer Gift"
+        buttonName: "Transfer"
     })
 
     const handleOpenTransfer = () => {
@@ -66,8 +50,8 @@ const Voucher = () => {
                 {
                     images: [{
                         image: similac,
-                        height: '100px',
-                        width: '100px',
+                        height: '150px',
+                        width: '150px',
                     }],
                     title: `Similac Gain Kid GOLD (2'-FL) 3KG BIB`,
                     desc: 'Abbott offers a $2 discount on new Similac products when you pay with an HSBC card! Paste the promo code in the dedicated box right away and unlock extra savings.',
@@ -75,8 +59,8 @@ const Voucher = () => {
                 {
                     images: [{
                         image: magic,
-                        height: '100px',
-                        width: '100px',
+                        height: '150px',
+                        width: '150px',
                     }],
                     title: 'Magic Powder 1.2Kg',
                     desc: 'Get S$10 off voucher when you purchase Magic Powder with Citibank Credit Card!'
@@ -84,12 +68,21 @@ const Voucher = () => {
                 {
                     images: [{
                         image: lus2,
-                        height: '100px',
-                        width: '100px',
+                        height: '150px',
+                        width: '150px',
                     }],
                     title: 'Similac Chocolate 100G',
                     desc: 'Save an extra 15% off, limited to 3 redemptions per user with selected merchants.',
                 },
+        ],
+        CouponImage : [
+            {
+                image: qr,
+                height: '150px',
+                weight: '150px',
+                imageText: 'main image description',
+                marginTop: '0%'
+            }
         ],
         Footer: [
             {   
@@ -98,20 +91,51 @@ const Voucher = () => {
         ]
     })
 
+    // Popup Coupon
+    const [openCoupon, setOpenCoupon] = useState(false); 
+    
+    const [coupon, setCoupon] = useState({
+        title: "Redeem Coupon",
+        desc: 
+        <Box>
+            <Stack direction="column" spacing={2}>
+                <CustomTypo variant="body1" mVariant="subtitle1" content="Show this qr code to the cashier to redeem" align="center"/>
+            </Stack>
+            <Box sx={{padding:'5%'}}>
+                <Image info={body.CouponImage}/>
+            </Box>
+            <Stack direction="column" spacing={2}>
+                <CustomTypo variant="h6" bold mVariant="h6" content="Voucher code: A123456" align="center"/>
+                <CustomTypo variant="body1" mVariant="subtitle1" content="Valid until 31 March 2022" align="center"/>
+            </Stack>
+        </Box>
+        ,
+        buttonName: "Copy Code"
+    })
+
+    const handleOpenCoupon = () => {
+        setOpenCoupon(true);
+    };
+
+    const handleCloseCoupon = (newCoupon) => {
+        setOpenCoupon(false);
+
+        if (newCoupon) {
+            setCoupon(newCoupon);
+        }
+    };
+
     return(
         <>
             <Header info={header}/>
-            <Snackbar
-                    sx={{padding: '5vh'}}
-                    autoHideDuration={1500}
-                    open={state.open}
-                    anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-                    onClose={handleCloseCopy}
-                    TransitionComponent={state.Transition}
-                    key={state.Transition.name}
-            >
-                <Alert severity="warning">Collect 10 stamps to get a free voucher code</Alert>
-            </Snackbar>
+            {/* Popup Coupon */}
+            <PopupDialog
+                keepMounted
+                open={openCoupon}
+                onClose={handleCloseCoupon}
+                value={coupon}
+            />
+
             {
                 body.List != null ? 
                     <Container>
@@ -138,27 +162,29 @@ const Voucher = () => {
                             </Grid>
                             <Grid item xs={12} md={12}>
                                 {body.List.map((item,index) => (
-                                    <List key={index}>
-                                        <Paper sx={{borderRadius: "10px 10px 10px 10px"}}>
-                                            <ListItem key={index}> 
-                                                <ListItemAvatar sx={{padding:'2%'}}>
-                                                    <Image info={item.images}/>
-                                                </ListItemAvatar>
+                                    <Box sx={{padding:"2%"}}>
+                                        <Paper sx={{borderRadius: "10px 10px 10px 10px", padding:"2%"}} key={index}>
+                                            <Grid item xs={12} md={12}>
+                                                <Image info={item.images}/>
+                                            </Grid>
+                                            <Grid item xs={12} md={12}>
                                                 <Stack direction="column">
                                                     <ListItemText sx={{paddingLeft:'2%'}}
-                                                        primary={item.title}
-                                                        secondary={item.desc}
+                                                        primary={<CustomTypo variant="h6" mVariant="body1" content={item.title} />}
+                                                        secondary={<CustomTypo variant="h6" mVariant="body1" content={item.desc} />}
                                                     />
-                                                    <Box sx={{padding:'2%'}}>
-                                                        <Chip icon={<ContentCopyIcon />} size="small" label="Voucher Code" onClick={handleClickCopy(Fade)}/>
-                                                    </Box>
-                                                    {/* <Box sx={{padding:'2%'}}>
-                                                        <Chip icon={<TransferWithinAStationIcon />} size="small" label="Transfer" onClick={handleOpenTransfer}/>
-                                                    </Box> */}
+                                                    <Stack direction="row">
+                                                        <Box sx={{padding:'2%'}}>
+                                                            <CustomChip icon={<ContentCopyIcon />} size="medium" mSize="medium" label="Voucher Code" onClick={handleOpenCoupon} />
+                                                        </Box>
+                                                        <Box sx={{padding:'2%'}}>
+                                                            <CustomChip icon={<TransferWithinAStationIcon />} size="medium" mSize="medium" label="Transfer" onClick={handleOpenTransfer} />
+                                                        </Box>
+                                                    </Stack>
                                                 </Stack>
-                                            </ListItem>
+                                            </Grid>
                                         </Paper>
-                                    </List>
+                                    </Box>
                                 ))}
                                 <Stack spacing={2} sx={{alignItems:'center', paddingTop:'5%'}}>
                                     <Pagination count={10} shape="rounded" />

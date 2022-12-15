@@ -1,18 +1,17 @@
 import { useState, React } from 'react';
-import { Box, Container, Grid, List, ListItem, ListItemText, Button, Fade, TextField, InputAdornment, ListItemAvatar, Snackbar, Alert, Chip, Stack, Pagination, Paper, Avatar, IconButton  } from '@mui/material';
+import { Box, Container, Grid, List, ListItem, ListItemText, Fade, TextField, InputAdornment, ListItemAvatar, Snackbar, Alert, Stack, Pagination, Paper, Avatar, IconButton  } from '@mui/material';
 import Header from '../component/Header';
 import Footer from '../component/Footer';
 import similac from '../img/similac.png';
 import magic from '../img/magic.jpg';
 import SearchIcon from '@mui/icons-material/Search';
-import Settings from '@mui/icons-material/Settings';
-import Logout from '@mui/icons-material/Logout';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import TransferWithinAStationIcon from '@mui/icons-material/TransferWithinAStation';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
 import { blue } from '@mui/material/colors';
 import PopupDialog from '../component/PopupDialog';
+import CustomChip from '../component/CustomChip';
+import CustomTypo from '../component/CustomTypo';
 
 const Friend = () => {
 
@@ -154,8 +153,6 @@ const Friend = () => {
                                         </ListItem>
                                     </Paper>
                                 </List>
-                            </Grid>
-                            <Grid item xs={12} md={12}>
                                 {body.List.map((item,index) => (
                                     <List key={index}>
                                         <Paper sx={{borderRadius: "10px 10px 10px 10px"}}>
@@ -171,8 +168,8 @@ const Friend = () => {
                                                 </ListItemAvatar>
                                                 <Stack direction="row">
                                                     <Box>
-                                                        <ListItemText primary={item.title}/>
-                                                        <Chip icon={<ContentCopyIcon />} size="small" label="ID: 1234567" onClick={handleClickCopy(Fade)}/>
+                                                        <ListItemText primary={<CustomTypo variant="subtitle1" mVariant="body2" bold color="primary.main" content={item.title} />}/>
+                                                        <CustomChip icon={<ContentCopyIcon />} size="medium" mSize="small" label="ID: 1234567" onClick={handleClickCopy(Fade)} />
                                                     </Box>
                                                 </Stack>
                                             </ListItem>

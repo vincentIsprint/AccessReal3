@@ -13,18 +13,12 @@ import { setLoginInfo } from '../redux/setting';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import CustomTypo from '../component/CustomTypo';
+import CustomChip from '../component/CustomChip';
 
 const Redeem = () => {
 
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
-    const handleClick = (event) => {
-      setAnchorEl(event.currentTarget);
-    };
-    const handleClose = () => {
-      setAnchorEl(null);
-    };
-
     const [header] = useState({
         Item : [{ 
             title2: 'Redeem Freebies',
@@ -37,13 +31,6 @@ const Redeem = () => {
         Transition: Fade,
     });
 
-    const handleClickCopy = (Transition) => () => {
-        setState({
-          open: true,
-          Transition,
-        });
-    };
-    
     const handleCloseCopy = () => {
         setState({
           ...state,
@@ -55,26 +42,45 @@ const Redeem = () => {
         Images : [
             {
                 image: similac,
+                height: '250px',
+                width: '250px',
                 imageText:`Similac Gain Kid GOLD (2'-FL) 3KG BIB`,
                 authenticated : true,
             }
         ],
         List:[
             {
-                img : lus2,
-                desc: `Similac Gain Kid GOLD (2'-FL) 3KG BIB`
+                images : [{
+                    image: lus2,
+                    height: '150px',
+                    width: '150px',
+                }],
+                title: `Similac Gain Kid GOLD (2'-FL) 3KG BIB`,
+
             },
             {
-                img : magic,
-                desc : `Magic Powder 1.5kg`
+                images : [{
+                    image: magic,
+                    height: '150px',
+                    width: '150px',
+                }],
+                title : `Magic Powder 1.5kg`
             },
             {
-                img : lus2,
-                desc: `Similac Gain Kid GOLD (2'-FL) 3KG BIB`
+                images : [{
+                    image: lus2,
+                    height: '150px',
+                    width: '150px',
+                }],
+                title: `Similac Gain Kid GOLD (2'-FL) 3KG BIB`
             },
             {
-                img : magic,
-                desc : `Magic Powder 1.5kg`
+                images : [{
+                    image: magic,
+                    height: '150px',
+                    width: '150px',
+                }],
+                title : `Magic Powder 1.5kg`
             }
         ],
         Footer: [
@@ -124,30 +130,28 @@ const Redeem = () => {
                             <Grid item xs={12} md={12}>
                                 <Paper sx={{borderRadius: "10px 10px 10px 10px"}}>
                                     <Box sx={{padding:'5%'}}>
-                                        <CustomTypo variant="h5" mVariant="h6" bold color="primary.main" content="Collect 10 stamps to get 1 FREE voucher" align="center"/>
+                                        <Image info={body.Images} />
+                                        <Stack direction="column" spacing={1} alignItems="left">
+                                            <Stack sx={{paddingTop:'2%', paddingBottom:'2%'}} direction="row" spacing={1}>
+                                                {Array.from(Array(3)).map((_, index) => (
+                                                    <Avatar key={index} sx={{ bgcolor: green[800] }}>
+                                                        <VerifiedIcon />
+                                                    </Avatar>
+                                                ))}
+                                                {Array.from(Array(2)).map((_, index) => (
+                                                    <div key={index} onClick={handleScan}>
+                                                        <Avatar  key={index} sx={{ bgcolor: grey[500] }}>
+                                                            <AddIcon />
+                                                        </Avatar>
+                                                    </div>
+                                                ))}
+                                            </Stack>
+                                            <CustomTypo variant="h5" mVariant="h6" bold color="primary.main" content="Collect 5 stamps to get a $15 Similac E-voucher"/>
+                                            <CustomTypo variant="subtitle1" mVariant="body1" content="Offer valid until 31 March 2025"/>
+                                            <CustomTypo variant="body2" mVariant="body2" content="**Terms and conditions applies"/>
+                                        </Stack>
                                     </Box>
-                                    <Stack sx={{padding:'2%'}} direction="row" spacing={1} alignItems="center" justifyContent="center">
-                                        {Array.from(Array(3)).map((_, index) => (
-                                            <Avatar key={index} sx={{ bgcolor: green[800] }}>
-                                                <VerifiedIcon />
-                                            </Avatar>
-                                        ))}
-                                        {Array.from(Array(2)).map((_, index) => (
-                                            <div key={index} onClick={handleScan}>
-                                                <Avatar  key={index} sx={{ bgcolor: grey[500] }}>
-                                                    <AddIcon />
-                                                </Avatar>
-                                            </div>
-                                        ))}
-                                    </Stack>
-                                    <Stack sx={{padding:'2%'}}direction="row" spacing={1} alignItems="center" justifyContent="center">
-                                        {Array.from(Array(5)).map((_, index) => (
-                                            <Avatar key={index} sx={{ bgcolor: grey[500] }}>
-                                                <AddIcon />
-                                            </Avatar>
-                                        ))}
-                                    </Stack>
-                                    <Image info={body.Images} />
+ 
                                 </Paper>
                             </Grid>
                             <Grid item xs={12} md={12}>
@@ -158,10 +162,7 @@ const Redeem = () => {
                                 {chipData.map((data) => {
                                     return (
                                         <Box key={data.key} sx={{ position: 'relative', display: 'inline-flex', padding: '1%'}}>
-                                            <Chip
-                                                label={data.label}
-                                                onDelete={handleDelete(data)}
-                                            />
+                                            <CustomChip size="medium" mSize="medium" label={<CustomTypo variant="subtitle1" mVariant="body2" color="primary.main" content={data.label} />} />
                                         </Box>
                                     );
                                 })}
@@ -170,21 +171,16 @@ const Redeem = () => {
                             {body.List.map((item,index) => (
                                 <Grid key={index} item xs={6} md={6}>
                                     <Paper sx={{borderRadius: "10px 10px 10px 10px"}} >
-                                        <Stack spacing={2} sx={{alignItems:'center', paddingTop:'5%'}}>
-                                            <Paper elevation={0}
-                                                sx={{
-                                                    backgroundImage: `url(${item.img})`,
-                                                    backgroundRepeat: 'no-repeat',
-                                                    backgroundPosition: 'center',
-                                                    backgroundSize: 'contain',
-                                                    backgroundColor: 'transparent',
-                                                    height: '150px', width: '150px',
-                                                }}
-                                            />
-                                            <Box sx={{paddingBottom:'3%'}}>
-                                                <CustomTypo variant="h6" mVariant="body2" bold color="primary.main" content={item.desc} align="center"/>
-                                            </Box>
-                                        </Stack>
+                                        <Grid item xs={12} md={12}>
+                                            <Image info={item.images}/>
+                                        </Grid>
+                                        <Grid item xs={12} md={12}>
+                                            <Stack sx={{padding:'2%'}} direction="row" spacing={1} alignItems="center" justifyContent="center">
+                                                <Box sx={{paddingBottom:'3%',alignContent:"center"}}>
+                                                    <CustomTypo variant="h6" mVariant="body2" bold color="primary.main" content={item.title} align="center"/>
+                                                </Box>
+                                            </Stack>
+                                        </Grid>
                                     </Paper>
                                 </Grid>
                             ))}

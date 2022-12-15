@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useTheme, styled } from '@mui/material/styles';
-import { Paper, MobileStepper, Stack, Container } from '@mui/material';
+import { Paper, MobileStepper, Stack } from '@mui/material';
 import { autoPlay } from 'react-swipeable-views-utils';
 import SwipeableViews from 'react-swipeable-views';
 
@@ -20,18 +20,6 @@ function Image(props) {
     boxShadow: 'none'
   }));
 
-  // function to calculate height and width of a component
-  const [height, setHeight] = React.useState(0);
-  const [width, setWidth] = React.useState(0);
-
-  const measuredRef = React.useCallback(node => {
-    if (node !== null) {
-      setHeight(node.getBoundingClientRect().height);
-      setWidth(node.getBoundingClientRect().width);
-    }
-  }, []);
-
-
   return (
     <>
       <AutoPlaySwipeableViews
@@ -44,28 +32,27 @@ function Image(props) {
           <div key={index}>
             {Math.abs(activeStep - index) <= 2 ? (
               <Paper
-                // ref={measuredRef}
                 elevation={0}
                 key={index}
                 sx={{
                   position: 'relative',
                   [theme.breakpoints.between(200,399)]: { 
-                    maxWidth: step.width !=null ? step.width : '200px',
-                    height: step.height !=null ? step.height : '200px',
+                    maxWidth: step.width !== undefined ? step.width : '200px',
+                    height: step.height !== undefined ? step.height : '200px',
                   },
                   [theme.breakpoints.between(400,'sm')]: { 
-                    maxWidth: step.width !=null ? step.width : '350px',
-                    height: step.height !=null ? step.height : '350px',
+                    maxWidth: step.width !== undefined ? step.width : '350px',
+                    height: step.height !== undefined ? step.height : '350px',
                   },
                   [theme.breakpoints.between('sm','xl')]: { 
-                    maxWidth: step.width !=null ? step.width : '400px',
-                    height: step.height !=null ? step.height : '400px',
+                    maxWidth: step.width !== undefined ? step.width : '400px',
+                    height: step.height !== undefined ? step.height : '400px',
                   },
                   [theme.breakpoints.up('xl')]: { 
-                    maxWidth: step.width !=null ? step.width : '400px',
-                    height: step.height !=null ? step.height : '400px',
+                    maxWidth: step.width !== undefined ? step.width : '400px',
+                    height: step.height !== undefined ? step.height : '400px',
                   },
-                  height: step.height !=null ? step.height : '100%',
+                  height: step.height !== undefined ? step.height : '100%',
                   backgroundImage: `url(${step.image})`,
                   backgroundRepeat: 'no-repeat',
                   backgroundPosition: 'center',

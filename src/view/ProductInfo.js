@@ -1,5 +1,5 @@
 import { useState, React } from 'react';
-import { IconButton, Grid, Container, Stack, Chip, Fade, Snackbar, Alert } from '@mui/material';
+import { IconButton, Grid, Container, Stack, Chip, Fade, Snackbar, Alert, Button, Box } from '@mui/material';
 import HelpIcon from '@mui/icons-material/Help';
 import QrCodeSharpIcon from '@mui/icons-material/QrCodeSharp';
 import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
@@ -12,15 +12,15 @@ import DeveloperModeOutlinedIcon from '@mui/icons-material/DeveloperModeOutlined
 import similac from '../img/similac.png';
 import magic from '../img/magic.jpg';
 import lus2 from '../img/lus2.png';
-import { useTheme } from '@mui/material/styles';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import CloudDownloadIcon from '@mui/icons-material/CloudDownload';
 import PopupDialog from '../component/PopupDialog';
-import ownershipcard from '../img/owner.png';
+import qr from '../img/qr.jpg';
 import CustomTypo from '../component/CustomTypo';
+import CustomChip from '../component/CustomChip';
 
-const ProductInfo = () => {
+const ProductInfo = (props) => {
 
     // QR Code Status in footer
     // 1. success
@@ -29,7 +29,6 @@ const ProductInfo = () => {
 
     const setting = useSelector((state)=>state.setting)
     
-    const theme = useTheme();
     const [header] = useState({
         Item : [
             {   
@@ -78,7 +77,9 @@ const ProductInfo = () => {
         ],
         OwnershipImage : [
             {
-                image: ownershipcard,
+                image: qr,
+                height: '150px',
+                weight: '150px',
                 imageText: 'main image description',
                 marginTop: '0%'
             }
@@ -124,8 +125,17 @@ const ProductInfo = () => {
     const [openOwner, setOpenOwner] = useState(false); 
     
     const [owner, setOwner] = useState({
-        title: "Ownership Certification",
-        desc: <Image info={body.OwnershipImage} />,
+        title: "Download Ownership Cert",
+        desc: 
+        <Box>
+            <Stack direction="column" spacing={2}>
+                <CustomTypo variant="body1" mVariant="subtitle1" content="Save this ownership card by clicking on the Download button below" align="center"/>
+            </Stack>
+            <Box sx={{padding:'5%'}}>
+                <Image info={body.OwnershipImage}/>
+            </Box>
+        </Box>
+        ,
         buttonName: "Download"
     })
 
@@ -143,7 +153,11 @@ const ProductInfo = () => {
 
     return(
         <> 
-            <Header info={header}/>
+            {
+                props.type != "popup" ?
+                    <Header info={header}/>
+                : null
+            }
             <Snackbar
                 sx={{padding: '5vh'}}
                 autoHideDuration={1500}
@@ -170,11 +184,11 @@ const ProductInfo = () => {
                             </Stack>
                         }
                         <Stack direction="row" spacing={2} sx={{paddingTop:'2%',paddingBottom:'5%'}}>
-                            <Chip icon={<CodeOutlinedIcon />} size="small" label="QR0000001" onClick={handleClick(Fade)}/>
-                            <Chip icon={<DeveloperModeOutlinedIcon />} size="small" label="12341234" onClick={handleClick(Fade)}/>
+                            <CustomChip icon={<CodeOutlinedIcon />} size="medium" mSize="small" label="QR0000001" onClick={handleClick(Fade)} />
+                            <CustomChip icon={<DeveloperModeOutlinedIcon />} size="medium" mSize="small" label="AB123412-4" onClick={handleClick(Fade)} />
                             {
                                 setting.productInfo === "success" ?
-                                    <Chip icon={<CloudDownloadIcon />} size="small" label="Download" onClick={handleOpenOwner}/>
+                                    <CustomChip icon={<CloudDownloadIcon />} size="medium" mSize="small" label="Download" onClick={handleOpenOwner} />
                                 :  null
                             }
                         </Stack>
@@ -195,7 +209,13 @@ const ProductInfo = () => {
                 onClose={handleCloseOwner}
                 value={owner}
             />
-            <Footer info={body.Footer[0]} />
+
+            {
+                props.type != "popup" ?
+                    <Footer info={body.Footer[0]} />
+                : null
+            }
+            
         </>
     );
 }

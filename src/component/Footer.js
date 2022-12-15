@@ -29,10 +29,7 @@ const Footer = (props) => {
         dispatch(setLoginInfo({loginInfo: 'none'}))
         navigate("/Scan");
     };
-    const handleScanHistory = () => {
-        dispatch(setLoginInfo({loginInfo: 'none'}))
-        navigate("/Scan_History");
-    };
+
     return(
         <>
             <Box component="footer"
@@ -66,54 +63,6 @@ const Footer = (props) => {
                     : null
                 }
             </Box>
-            {
-                props.info.scanner !== undefined && props.info.scanner ?
-                    <BottomNavigation
-                        sx={{
-                            zIndex: 2,
-                            position: 'fixed',
-                            width: '100%',
-                            maxWidth:'sm',
-                            bottom: 0,
-                            backgroundColor:"primary.main",
-                            '& .Mui-selected': {
-                                '& .MuiBottomNavigationAction-label': {
-                                    fontSize: theme => theme.typography.caption,
-                                    transition: 'none',
-                                    fontWeight: 'bold',
-                                    lineHeight: '20px'
-                                },
-                                '& .MuiSvgIcon-root, & .MuiBottomNavigationAction-label': {
-                                    color: theme => theme.palette.primary.inverted
-                                }
-                            },
-                        }}
-                        showLabels
-                    >
-                        <BottomNavigationAction label="Switch" 
-                            sx={{color:theme => theme.palette.info.main}} 
-                            icon={<FlipCameraIosIcon />}
-                        />
-                        {   
-                            setting.loginInfo != "login" ?
-                                <BottomNavigationAction label="Scan History" 
-                                    sx={{color:theme => theme.palette.info.main}} 
-                                    icon={<HistoryIcon />}
-                                    onClick={handleScanHistory}
-                                />
-                            : null
-                        }
-                        <BottomNavigationAction label="Upload" 
-                            sx={{color:theme => theme.palette.info.main}} 
-                            icon={<FileUploadIcon />}
-                        />
-                        <BottomNavigationAction label="Flash" 
-                            sx={{color:theme => theme.palette.info.main}} 
-                            icon={<FlashOnIcon />} 
-                        />
-                    </ BottomNavigation>
-                : null
-            }
             {
                 setting.loginInfo === "login" ?
                     <BottomNavigation
@@ -153,6 +102,12 @@ const Footer = (props) => {
                             icon={<RedeemIcon />} 
                             component={Link}
                             to={`/Redeem`}
+                        />
+                        <BottomNavigationAction label="Scan History" 
+                            sx={{color:theme => theme.palette.info.main}} 
+                            icon={<HistoryIcon />}
+                            component={Link}
+                            to={`/Scan_History`}
                         />
                         <BottomNavigationAction label="Friend" 
                             sx={{color:theme => theme.palette.info.main}} 

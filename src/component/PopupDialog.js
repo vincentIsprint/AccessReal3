@@ -18,7 +18,7 @@ function PopupDialog(props) {
     }, [valueProp, open]);
     
     const handleEntering = () => {
-        if (radioGroupRef.current != null) {
+        if (radioGroupRef.current !== null) {
             radioGroupRef.current.focus();
         }
     };
@@ -30,7 +30,7 @@ function PopupDialog(props) {
     const handleOk = () => {
         onClose();
 
-        if(value!=undefined)
+        if(value!== undefined)
             valueProp.current=value
     };
     
@@ -42,15 +42,10 @@ function PopupDialog(props) {
     const navigate = useNavigate();
 
     //start redux
-    const [ preAuthValue, setPreAuthValue ] = useState('');
-    const [ productInfoValue, setProductInfoValue ] = useState('');
-    const [ loginValue, setLoginValue] = useState('')
-
     const dispatch = useDispatch();
 
     //redux tutorial: https://www.youtube.com/watch?v=iBUJVy8phqw
     function updatePreAuth(value) {
-        setPreAuthValue(value)
         dispatch(setAuth({
             preAuth: value
         }))
@@ -58,11 +53,9 @@ function PopupDialog(props) {
     }
 
     function updateProductInfo(value) {
-        setProductInfoValue(value)
         dispatch(setProductInfo({
             productInfo: value
         }))
-        setLoginValue("logout")
         dispatch(setLoginInfo({
             loginInfo: "logout"
         }))
@@ -70,11 +63,9 @@ function PopupDialog(props) {
     }
 
     function updateProductInfoHelp(value) {
-        setProductInfoValue(value)
         dispatch(setProductInfo({
             productInfo: value
         }))
-        setLoginValue("logout")
         dispatch(setLoginInfo({
             loginInfo: "logout"
         }))
@@ -82,7 +73,6 @@ function PopupDialog(props) {
     }
 
     function updateLoginInfo(value) {
-        setLoginValue(value)
         dispatch(setLoginInfo({
             loginInfo: value
         }))
@@ -95,12 +85,31 @@ function PopupDialog(props) {
     //end redux
 
     return (
-        <Dialog sx={{ '& .MuiDialog-paper': { width: '100%'} }} maxWidth="xs" TransitionProps={{ onEntering: handleEntering }} onClose={handleCancel} open={open} {...other} >
-            <DialogTitle>{valueProp.title != null ? valueProp.title : null}</DialogTitle>
+        <Dialog maxWidth="xs" TransitionProps={{ onEntering: handleEntering }} onClose={handleCancel} open={open} {...other} 
+                sx= {{ 
+                        '& .MuiDialog-paper': { width: '100%'},
+                        '*::-webkit-scrollbar': {
+                            width: '0.4em'
+                        },
+                        '*::-webkit-scrollbar-track': {
+                            '-webkit-box-shadow': 'inset 0 0 6px rgba(0,0,0,0.00)'
+                        },
+                        '*::-webkit-scrollbar-thumb': {
+                            backgroundColor: 'rgba(0,0,0,.1)',
+                            outline: '1px solid slategrey'
+                        }
+                    }}
+        
+        >
+            {   
+                valueProp.title !== undefined ? 
+                    <DialogTitle> {valueProp.title} </DialogTitle> 
+                : undefined
+            }
             <DialogContent dividers>
                 { valueProp.desc }
-                { valueProp.options != null ?
-                    <RadioGroup ref={radioGroupRef} name={valueProp.title != null ? valueProp.title : null} value={value} onChange={handleChange}>
+                { valueProp.options !== undefined ?
+                    <RadioGroup ref={radioGroupRef} name={valueProp.title !== undefined ? valueProp.title : undefined} value={value} onChange={handleChange}>
                         {valueProp.options.map((option) => (
                             <FormControlLabel
                                 value={option}
@@ -149,13 +158,13 @@ function PopupDialog(props) {
                             </Stack>
                             <Stack direction="row" spacing={2}>
                                 <Button variant="contained" onClick={() => updateProductInfoHelp("success")}>
-                                    Success_Help
+                                    Success(?)
                                 </Button>
                                 <Button variant="contained" onClick={() => updateProductInfoHelp("failed")}>
-                                    Failed_Help
+                                    Failed(?)
                                 </Button>
                                 <Button variant="contained" onClick={() => updateProductInfoHelp("verify")}>
-                                    Verify_Help
+                                    Verify(?)
                                 </Button>
                             </Stack>
 
@@ -175,7 +184,7 @@ function PopupDialog(props) {
             </DialogContent>
             <DialogActions>
                 <Button autoFocus onClick={handleCancel}> Cancel </Button>
-                <Button onClick={handleOk}> {valueProp.buttonName != null ? valueProp.buttonName : "Ok"} </Button>
+                <Button onClick={handleOk}> {valueProp.buttonName !== undefined ? valueProp.buttonName : "Ok"} </Button>
             </DialogActions>
         </Dialog>
     );

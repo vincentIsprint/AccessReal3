@@ -26,13 +26,6 @@ const Login = () => {
         Transition: Fade,
     });
     
-    const handleClick = (Transition) => () => {
-        setState({
-          open: true,
-          Transition,
-        });
-    };
-    
     const handleClose = () => {
         setState({
           ...state,

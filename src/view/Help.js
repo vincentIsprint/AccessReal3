@@ -47,7 +47,7 @@ const Help = () => {
         ],
         Footer: [
             {   
-                content: <CustomTypo variant="subtitle1" mVariant="body2" color="primary.inverted" content="Powered by i-Sprint" align="center"/>
+                content: null
             }
         ]
     })

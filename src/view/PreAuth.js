@@ -41,7 +41,7 @@ const Loading = () => {
         ],      
         Footer: [
             {   
-                content: <CustomTypo variant="subtitle1" mVariant="body2" color="primary.inverted" content="Powered by i-Sprint" align="center"/>
+                content: <CustomTypo variant="subtitle1" mVariant="body2" component="p" color="primary.inverted" content="Powered by i-Sprint" align="center"/>
             }
         ]
     })
@@ -125,7 +125,7 @@ const Loading = () => {
                 <Container sx={{paddingTop:'10%'}}>
                     <Grid container justifyContent="center" spacing={2}>
                         <Grid item xs={12} md={12}>
-                            <CustomTypo variant="subtitle1" mVariant="body1" color="primary.main" 
+                            <CustomTypo variant="subtitle1" mVariant="body1" component="p" color="primary.main" 
                                 content={
                                     setting.preAuth === "loading" ? `System is loading required files. Please wait.` :
                                     setting.preAuth === "auth" ? `Failed to authenticate the product. The QR code you have scanned is not activated.` :

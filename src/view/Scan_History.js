@@ -1,31 +1,24 @@
 import { useState, React } from 'react';
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import { IconButton, Box, Container, Grid, List,ListItem,ListItemText,Button, TextField, InputAdornment } from '@mui/material';
+import { IconButton, Box, Container, Grid, List,ListItem,ListItemText,Button, TextField, InputAdornment, Divider, Chip, Paper } from '@mui/material';
 import Header from '../component/Header';
 import Footer from '../component/Footer';
 import DeleteIcon from '@mui/icons-material/Delete';
-import FileDownloadIcon from '@mui/icons-material/FileDownload';
-import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { setAuth } from '../redux/setting';
 import SearchIcon from '@mui/icons-material/Search';
+import PopupDialog from '../component/PopupDialog';
+import { setProductInfo, setLoginInfo } from '../redux/setting';
+import { useDispatch } from 'react-redux';
+import ProductInfo from './ProductInfo';
+import QrCodeScannerIcon from '@mui/icons-material/QrCodeScanner';
+import CustomTypo from '../component/CustomTypo';
+import { useNavigate } from 'react-router-dom';
 
 const Scan_History = () => {
     
     const [header] = useState({
         Item : [
             {   
-                leftcontent:
-                    <IconButton size="large" edge="start" sx={{color:"primary.main"}}
-                        component={Link} to={`/Scan`}
-                    >
-                        <ArrowBackIosNewIcon />
-                    </IconButton>,
-                title: 'Scan History',
-                rightcontent:
-                    <IconButton size="large" edge="start" sx={{color:"primary.main"}}>
-                        <FileDownloadIcon />
-                    </IconButton>
+                title2: 'Scan History',
+                login: true
             }
         ]
     })
@@ -80,30 +73,44 @@ const Scan_History = () => {
         ]
     })
 
-    const dispatch = useDispatch();
+    const [openProductInfo, setOpenProductInfo] = useState(false); 
 
-    const handleChangePreAuth = (event) => {
-        dispatch(setAuth({
-            preAuth: 'history'
-        }))
+    const [productInfo, setProductInfo] = (
+        useState({
+            desc: <ProductInfo type="popup"/>
+        })
+    )
+
+    const handleOpenProductInfo = () => {
+        setOpenProductInfo(true);
     };
 
+    const handleCloseProductInfo = (newProductInfo) => {
+        setOpenProductInfo(false);
+
+        if (newProductInfo) {
+            setProductInfo(newProductInfo);
+        }
+    };
+    let navigate = useNavigate();
+    const handleScan = () => {
+        navigate("/Scan");
+    }
     return(
         <>
             <Header info={header}/>
-            
             {
                 body.List != null ? 
                     <Container>
                         <Grid container justifyContent="center" spacing={2}>
                             <Grid item xs={12} md={12}>
                                 <Box
-                                    component="form"
-                                    sx={{
-                                        '& > :not(style)': { m: 1, width: '100%' },
-                                    }}
-                                    noValidate
-                                    autoComplete="off"
+                                     component="form"
+                                     sx={{
+                                         '& > :not(style)': { width: '100%' },
+                                     }}
+                                     noValidate
+                                     autoComplete="off"
                                 >
                                     <TextField id="filled-basic" label="Search" variant="filled" 
                                         InputProps={{
@@ -117,6 +124,13 @@ const Scan_History = () => {
                                 </Box>
                             </Grid>
                             <Grid item xs={12} md={12}>
+                                <List key='scan'>
+                                    <ListItem>
+                                        <Button variant="outlined" sx={{ width: "100%", padding:'5%', backgroundColor:'primary.inverted'}} startIcon={<QrCodeScannerIcon />} onClick={handleScan}>
+                                            <CustomTypo variant="subtitle1" mVariant="subtitle1" component="p" color="primary.main" content="Scan QR Code" size="1.1rem"/>
+                                        </Button>
+                                    </ListItem>
+                                </List>
                                 {body.List.map((info,index) => (
                                     <List key={index}>
                                         <ListItem
@@ -127,9 +141,8 @@ const Scan_History = () => {
                                                 </IconButton>
                                             }
                                         > 
-                                            <Button variant="outlined" sx={{ width: "100%"}}
-                                                onClick={handleChangePreAuth}
-                                                component={Link} to={`/ProductInfo`}
+                                            <Button variant="outlined" sx={{ width: "100%", backgroundColor:'primary.inverted'}}
+                                                onClick={handleOpenProductInfo}
                                             >
                                                 <ListItemText
                                                         primary={info.code}
@@ -145,6 +158,15 @@ const Scan_History = () => {
                     </Container>
                 : null
             }
+
+            {/* Popup Product Info Dialog */}
+            <PopupDialog
+                keepMounted
+                open={openProductInfo}
+                onClose={handleCloseProductInfo}
+                value={productInfo}
+            />
+
             <Footer info={body.Footer[0]} />
         </>
     );

@@ -36,7 +36,7 @@ const Scan = () => {
             {   
                 leftcontent:
                     <IconButton size="large" edge="start" sx={{color:"primary.main"}}
-                        component={Link} to={ setting.loginInfo != "login" ? '/ProductInfo' : '/Redeem'}
+                        component={Link} to={ setting.loginInfo !== "login" ? '/ProductInfo' : '/Scan_History'}
                     >
                         <ArrowBackIosNewIcon />
                     </IconButton>,
@@ -116,11 +116,6 @@ const Scan = () => {
                         </Box>
                     </Container>
                 : null
-            }
-            {
-                body.Footer != null ?
-                    <Footer info={body.Footer[0]} />
-                :null
             }
         </>
     );

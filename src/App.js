@@ -13,21 +13,17 @@ import SignUp from './view/SignUp';
 import Profile from './view/Profile';
 import ResetPassword from './view/ResetPassword';
 import { Route, Routes } from 'react-router-dom';
-import { Box, Fab } from '@mui/material';
+import { Fab } from '@mui/material';
 import SettingsIcon from '@mui/icons-material/Settings';
 import PopupDialog from './component/PopupDialog';
 import { useDispatch } from 'react-redux';
 import { setMeasure } from './redux/setting';
-import { useSelector } from 'react-redux';
 import Friend from './view/Friend';
 import Redeem from './view/Redeem';
 import Voucher from './view/Voucher';
-import CssBaseline from '@mui/material/CssBaseline';
 import Setting from './view/Setting';
 
 const App = () => {
-
-    const setting = useSelector((state)=>state.setting)
 
     const [open, setOpen] = useState(false); 
 

@@ -22,7 +22,7 @@ const FAQ = () => {
         ]
     })
 
-    const [body,setDropdown] = useState({
+    const [body] = useState({
         Dropdown : [
             {
                 title: 'Mobile Type',
