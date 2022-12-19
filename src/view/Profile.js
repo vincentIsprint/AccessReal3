@@ -1,10 +1,11 @@
 import { useState, React } from 'react';
-import { IconButton, Grid, Container, Snackbar, Alert, TextField, Stack, Button } from '@mui/material';
+import { Grid, Container, Snackbar, Alert, TextField, Stack, Button } from '@mui/material';
 import Header from '../component/Header';
 import Footer from '../component/Footer';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import Fade from '@mui/material/Fade';
 import { Link } from 'react-router-dom';
+import CustomIcon from '../component/CustomIcon';
 
 const Profile = () => {
 
@@ -31,11 +32,7 @@ const Profile = () => {
         Item : [
             {   
                 leftcontent:
-                    <IconButton size="large" edge="start" sx={{color:"primary.main"}}
-                        component={Link} to={`/Setting`}
-                    >
-                        <ArrowBackIosNewIcon />
-                    </IconButton>,
+                    <CustomIcon size="large" mSize="small" edge="start" icon={<ArrowBackIosNewIcon />} sx={{color:"primary.main"}}  component={Link} to={`/Setting`}/>,
                 title2: 'Profile Setting',
                 login: true
             }

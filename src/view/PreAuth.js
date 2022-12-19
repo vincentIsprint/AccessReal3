@@ -1,6 +1,6 @@
 import { useState, useEffect, React } from 'react';
 import HelpIcon from '@mui/icons-material/Help';
-import { IconButton, Grid, Container, Button, Box, Stack } from '@mui/material';
+import { Grid, Container, Button, Box, Stack } from '@mui/material';
 import Header from '../component/Header';
 import Footer from '../component/Footer';
 import Image from '../component/Image';
@@ -11,6 +11,7 @@ import AR_Img from '../img/AR.png';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import CustomTypo from '../component/CustomTypo';
+import CustomIcon from '../component/CustomIcon';
 
 const Loading = () => {
     const setting = useSelector((state)=>state.setting)
@@ -21,12 +22,7 @@ const Loading = () => {
                 language: true,
                 languagecolor: "primary.main",
                 rightcontent: 
-                    <IconButton size="large" edge="end" sx={{color:"primary.main"}}
-                        component={Link} to={`/FAQ`}
-                    >
-                        <HelpIcon />
-                    </IconButton>
-                
+                    <CustomIcon size="large" mSize="small" edge="end" icon={<HelpIcon />} sx={{color:"primary.main"}}  component={Link} to={`/FAQ`}/>
             }
         ]
     })

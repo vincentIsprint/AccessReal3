@@ -1,5 +1,5 @@
 import { useState, React } from 'react';
-import { IconButton, Grid, Container, Snackbar, Alert, TextField, Stack, Avatar, Button, Checkbox, FormControlLabel, Divider, Chip  } from '@mui/material';
+import { Grid, Container, Snackbar, Alert, TextField, Stack, Avatar, Button, Checkbox, FormControlLabel, Divider, Chip  } from '@mui/material';
 import Header from '../component/Header';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import Fade from '@mui/material/Fade';
@@ -12,6 +12,7 @@ import InstaImg from '../img/flaticon/instagram.png';
 import { Link } from 'react-router-dom';
 import Image from '../component/Image';
 import CustomTypo from '../component/CustomTypo';
+import CustomIcon from '../component/CustomIcon';
 
 const SignUp = () => {
 
@@ -43,11 +44,8 @@ const SignUp = () => {
         Item : [
             {   
                 leftcontent:
-                    <IconButton size="large" edge="start" sx={{color:"primary.main"}}
-                        component={Link} to={`/Login`}
-                    >
-                        <ArrowBackIosNewIcon />
-                    </IconButton>
+                    <CustomIcon size="large" mSize="small" edge="start" icon={<ArrowBackIosNewIcon />} sx={{color:"primary.main"}} 
+                        component={Link} to={`/Login`}/>
             }
         ]
     })
@@ -144,28 +142,17 @@ const SignUp = () => {
                        
                         <Grid container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                             <Grid item>
-                                <IconButton>
-                                    <Avatar src={GoogleImg} sx={{width:'50px', height:'50px'}}/>
-                                </IconButton>
-                                <IconButton>
-                                    <Avatar src={FacebookImg} sx={{width:'50px', height:'50px'}}/>
-                                </IconButton>
-                                <IconButton>
-                                    <Avatar src={LineImg} sx={{width:'50px', height:'50px'}}/>
-                                </IconButton>
-                                <IconButton>
-                                    <Avatar src={WechatImg} sx={{width:'50px', height:'50px'}}/>
-                                </IconButton>
-                                <IconButton>
-                                    <Avatar src={InstaImg} sx={{width:'50px', height:'50px'}}/>
-                                </IconButton>
+                                <CustomIcon size="large" mSize="small" icon={<Avatar src={GoogleImg} sx={{width:'50px', height:'50px'}}/>} />
+                                <CustomIcon size="large" mSize="small" icon={<Avatar src={FacebookImg} sx={{width:'50px', height:'50px'}}/>} />
+                                <CustomIcon size="large" mSize="small" icon={<Avatar src={LineImg} sx={{width:'50px', height:'50px'}}/>} />
+                                <CustomIcon size="large" mSize="small" icon={<Avatar src={WechatImg} sx={{width:'50px', height:'50px'}}/>} />
+                                <CustomIcon size="large" mSize="small" icon={<Avatar src={InstaImg} sx={{width:'50px', height:'50px'}}/>} />
                             </Grid>
                             <Grid item sx={{padding: '5%'}}>
                                 <CustomTypo variant="body1" mVariant="body1" color="primary.main" content="Sign up for an account before? Login" size="1.1rem" component={Link} to={`/Login`}/>
                             </Grid>
                         </Grid>
                     </Stack>
-                    
                 </Container>
             </Grid>
         </>

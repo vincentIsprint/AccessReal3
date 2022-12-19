@@ -1,6 +1,6 @@
 import { useState, React } from 'react';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import { IconButton, Container, Grid, Stack, Button } from '@mui/material';
+import { Container, Grid, Stack, Button } from '@mui/material';
 import Header from '../component/Header';
 import Footer from '../component/Footer';
 import Image from '../component/Image';
@@ -10,17 +10,16 @@ import APK_Img from '../img/gp.png';
 import GooglePlay_Img from '../img/playstore.png';
 import { Link } from 'react-router-dom';
 import CustomTypo from '../component/CustomTypo';
+import CustomIcon from '../component/CustomIcon';
 
 const Help_Scan = () => {
     const [header] = useState({
         Item : [
             {   
                 leftcontent:
-                    <IconButton size="large" edge="start" sx={{color:"primary.main"}}
-                        component={Link} to={`/Scan`}
-                    >
-                        <ArrowBackIosNewIcon />
-                    </IconButton>,
+                    <CustomIcon size="large" mSize="small" edge="start" sx={{color:"primary.main"}}
+                        component={Link} to={`/Scan`} icon={<ArrowBackIosNewIcon />}
+                    />,
                 title: 'QR Code Scanning'
             }
         ]

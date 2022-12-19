@@ -1,5 +1,5 @@
 import { useState, React } from 'react';
-import { AppBar, Toolbar, Box, IconButton, MenuItem, Menu, ListItemIcon, Divider } from '@mui/material';
+import { AppBar, Toolbar, Box, MenuItem, Menu, ListItemIcon, Divider } from '@mui/material';
 import PopupDialog from './PopupDialog';
 import LanguageIcon from '@mui/icons-material/Language';
 import { Logout, Settings } from '@mui/icons-material';
@@ -8,7 +8,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useDispatch } from 'react-redux';
 import { setLoginInfo } from '../redux/setting';
 import CustomTypo from './CustomTypo';
-
+import CustomIcon from './CustomIcon';
 const Header = (props) => {
 
     const [open, setOpen] = useState(false); 
@@ -71,9 +71,7 @@ const Header = (props) => {
                         <Box display='flex' flexGrow={1}>
                             {
                                 info.language ?
-                                    <IconButton size="large" edge="start" sx={{color:info.languagecolor}} onClick={handleOpenLanguage}>
-                                        <LanguageIcon/>
-                                    </IconButton>
+                                    <CustomIcon size="large" mSize="small" edge="start" icon={<LanguageIcon/>} sx={{color:info.languagecolor}} onClick={handleOpenLanguage}/>
                                 : info.leftcontent ? info.leftcontent
                                 : null
                             }
@@ -85,16 +83,13 @@ const Header = (props) => {
                             info.rightcontent ?
                                 info.rightcontent
                             : info.login ?
-                                <IconButton 
+                                <CustomIcon 
                                     onClick={handleOpenMenu}
-                                    size="small"
-                                    sx={{ ml: 2 }}
-                                    aria-controls={openMenu ? 'account-menu' : undefined}
-                                    aria-haspopup="true"
-                                    aria-expanded={openMenu ? 'true' : undefined}
-                                >
-                                    <AccountCircleIcon sx={{ width: 32, height: 32 }} />
-                                </IconButton>
+                                    size="large" mSize="medium"
+                                    sx={{ ml: 2, color:"primary.main" }}
+                                    icon={ <AccountCircleIcon sx={{ width: 32, height: 32 }} />}
+                                />
+                                   
                             : null
                         }
                     </Toolbar>

@@ -1,5 +1,5 @@
 import { useState, React } from 'react';
-import { IconButton, Grid, Container, Snackbar, Alert, TextField, Stack, Button  } from '@mui/material';
+import { Grid, Container, Snackbar, Alert, TextField, Stack, Button  } from '@mui/material';
 import Header from '../component/Header';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import Fade from '@mui/material/Fade';
@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Image from '../component/Image';
 import CustomTypo from '../component/CustomTypo';
+import CustomIcon from '../component/CustomIcon';
 
 const ResetPassword = () => {
 
@@ -36,11 +37,8 @@ const ResetPassword = () => {
         Item : [
             {   
                 leftcontent:
-                    <IconButton size="large" edge="start" sx={{color:"primary.main"}}
-                        component={Link} to={ setting.loginInfo === "login" ? '/Setting': '/Login'}
-                    >
-                        <ArrowBackIosNewIcon />
-                    </IconButton>,
+                <CustomIcon size="large" mSize="small" edge="start" icon={<ArrowBackIosNewIcon />} sx={{color:"primary.main"}}  
+                    component={Link} to={ setting.loginInfo === "login" ? '/Setting': '/Login'}/>,
                 title2: setting.loginInfo === "login" ? 'Reset Password' : null,
                 login: setting.loginInfo === "login" ? true : null,
             }

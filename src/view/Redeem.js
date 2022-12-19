@@ -188,7 +188,6 @@ const Redeem = () => {
                     </Container>
                 : null
             }
-            <Box sx={{padding:'5%'}} />
             <Footer info={body.Footer[0]} />
         </>
     );

@@ -1,5 +1,5 @@
 import { useState, React } from 'react';
-import { IconButton, Grid, Container, Snackbar, Alert, TextField, Stack, Avatar, Button, Divider, Chip  } from '@mui/material';
+import { Grid, Container, Snackbar, Alert, TextField, Stack, Avatar, Button, Divider, Chip  } from '@mui/material';
 import Header from '../component/Header';
 import Fade from '@mui/material/Fade';
 import { Link, useNavigate } from 'react-router-dom';
@@ -13,6 +13,7 @@ import LineImg from '../img/flaticon/line.png';
 import WechatImg from '../img/flaticon/wechat.png';
 import InstaImg from '../img/flaticon/instagram.png';
 import CustomTypo from '../component/CustomTypo';
+import CustomIcon from '../component/CustomIcon';
 
 const Login = () => {
 
@@ -113,21 +114,11 @@ const Login = () => {
                        
                         <Grid container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                             <Grid item>
-                                <IconButton>
-                                    <Avatar src={GoogleImg} sx={{width:'50px', height:'50px'}}/>
-                                </IconButton>
-                                <IconButton>
-                                    <Avatar src={FacebookImg} sx={{width:'50px', height:'50px'}}/>
-                                </IconButton>
-                                <IconButton>
-                                    <Avatar src={LineImg} sx={{width:'50px', height:'50px'}}/>
-                                </IconButton>
-                                <IconButton>
-                                    <Avatar src={WechatImg} sx={{width:'50px', height:'50px'}}/>
-                                </IconButton>
-                                <IconButton>
-                                    <Avatar src={InstaImg} sx={{width:'50px', height:'50px'}}/>
-                                </IconButton>
+                                <CustomIcon size="large" mSize="small" icon={<Avatar src={GoogleImg} sx={{width:'50px', height:'50px'}}/>} />
+                                <CustomIcon size="large" mSize="small" icon={<Avatar src={FacebookImg} sx={{width:'50px', height:'50px'}}/>} />
+                                <CustomIcon size="large" mSize="small" icon={<Avatar src={LineImg} sx={{width:'50px', height:'50px'}}/>} />
+                                <CustomIcon size="large" mSize="small" icon={<Avatar src={WechatImg} sx={{width:'50px', height:'50px'}}/>} />
+                                <CustomIcon size="large" mSize="small" icon={<Avatar src={InstaImg} sx={{width:'50px', height:'50px'}}/>} />
                             </Grid>
                             <Grid item sx={{padding: '5%'}}>
                                 <CustomTypo variant="body1" mVariant="body1" color="primary.main" content="New to AccessReal? Register" size="1.1rem" component={Link} to={`/SignUp`}/>

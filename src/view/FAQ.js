@@ -1,22 +1,20 @@
 import { useState, React } from 'react';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { Accordion, AccordionSummary, AccordionDetails, IconButton, Box, FormControl, InputLabel, Select, MenuItem, Container } from '@mui/material';
+import { Accordion, AccordionSummary, AccordionDetails, Box, FormControl, InputLabel, Select, MenuItem, Container } from '@mui/material';
 import Header from '../component/Header';
 import Footer from '../component/Footer';
 import { Link } from 'react-router-dom';
 import CustomTypo from '../component/CustomTypo';
+import CustomIcon from '../component/CustomIcon';
 
 const FAQ = () => {
     const [header] = useState({
         Item : [
             {   
                 leftcontent:
-                    <IconButton size="large" edge="start" sx={{color:"primary.main"}}
-                        component={Link} to={`/PreAuth`}
-                    >
-                        <ArrowBackIosNewIcon />
-                    </IconButton>,
+                    <CustomIcon size="large" mSize="large" edge="start" sx={{color:"primary.main"}}
+                        component={Link} to={`/PreAuth`} icon={<ArrowBackIosNewIcon />} />,
                 title: 'Frequent Asked Questions'
             }
         ]

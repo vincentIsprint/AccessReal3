@@ -1,5 +1,5 @@
 import { useState, React } from 'react';
-import { IconButton, Grid, Container, Stack, Chip, Fade, Snackbar, Alert, Button, Box } from '@mui/material';
+import { Grid, Container, Stack, Chip, Fade, Snackbar, Alert, Button, Box, List, ListItem, ListItemAvatar, Avatar, ListItemText } from '@mui/material';
 import HelpIcon from '@mui/icons-material/Help';
 import QrCodeSharpIcon from '@mui/icons-material/QrCodeSharp';
 import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
@@ -12,13 +12,17 @@ import DeveloperModeOutlinedIcon from '@mui/icons-material/DeveloperModeOutlined
 import similac from '../img/similac.png';
 import magic from '../img/magic.jpg';
 import lus2 from '../img/lus2.png';
-import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
 import CloudDownloadIcon from '@mui/icons-material/CloudDownload';
 import PopupDialog from '../component/PopupDialog';
 import qr from '../img/qr.jpg';
 import CustomTypo from '../component/CustomTypo';
 import CustomChip from '../component/CustomChip';
+import CustomIcon from '../component/CustomIcon';
+import PrivacyTipIcon from '@mui/icons-material/PrivacyTip';
+import PolicyIcon from '@mui/icons-material/Policy';
+import { setLoginInfo } from '../redux/setting';
 
 const ProductInfo = (props) => {
 
@@ -32,14 +36,17 @@ const ProductInfo = (props) => {
     const [header] = useState({
         Item : [
             {   
-                language: true,
+                language: setting.loginInfo === "login" ?  false : true,
+                login: setting.loginInfo === "login" ?  true : false,
                 languagecolor: "primary.main",
-                rightcontent: 
-                    <IconButton size="large" edge="end" sx={{color:"primary.main"}} 
-                        component={Link} to={`/Help`}
-                    >
-                        <HelpIcon />
-                    </IconButton>
+                leftcontent:
+                    setting.loginInfo === "login" ?  
+                        <CustomIcon size="large" mSize="small" edge="end" icon={<HelpIcon />} sx={{color:"primary.main"}}  component={Link} to={`/Help`}/>
+                        : null,
+                rightcontent:
+                    setting.loginInfo !== "login" ?  
+                        <CustomIcon size="large" mSize="small" edge="end" icon={<HelpIcon />} sx={{color:"primary.main"}}  component={Link} to={`/Help`}/>
+                        : null
                 
             }
         ]
@@ -150,6 +157,13 @@ const ProductInfo = (props) => {
             setOwner(newOwner);
         }
     };
+    const dispatch = useDispatch();
+    let navigate = useNavigate();
+
+    const handleScan = () => {
+        dispatch(setLoginInfo({loginInfo: 'none'}))
+        navigate("/Scan");
+    };
 
     return(
         <> 
@@ -175,23 +189,31 @@ const ProductInfo = (props) => {
                         {   body.Images != null ?  <Image info={body.Images} /> : null }
                     </Grid>
                     <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
-                        <CustomTypo variant="h4" mVariant="h5" color={body.TimelineTitle[0].color} content="Lashaddict Major Extensions Mascara"/>
-                        {
-                            setting.productInfo === "verify" ? null :
-                            <Stack direction="row" spacing={1} sx={{paddingTop:'1%'}}>
-                                <VerifiedUserIcon fontSize="small" color="authenticated"/>
-                                <CustomTypo variant="h5" mVariant="body1" color={body.TimelineTitle[0].color} content="Authenticated on 21 June 2022"/>
-                            </Stack>
-                        }
-                        <Stack direction="row" spacing={2} sx={{paddingTop:'2%',paddingBottom:'5%'}}>
-                            <CustomChip icon={<CodeOutlinedIcon />} size="medium" mSize="small" label="QR0000001" onClick={handleClick(Fade)} />
-                            <CustomChip icon={<DeveloperModeOutlinedIcon />} size="medium" mSize="small" label="AB123412-4" onClick={handleClick(Fade)} />
+                        <List dense disablePadding>
+                            <ListItem disablePadding>
+                                <CustomTypo variant="h4" mVariant="h5" color={body.TimelineTitle[0].color} content="Lashaddict Major Extensions Mascara"/>
+                            </ListItem>
                             {
-                                setting.productInfo === "success" ?
-                                    <CustomChip icon={<CloudDownloadIcon />} size="medium" mSize="small" label="Download" onClick={handleOpenOwner} />
-                                :  null
+                                setting.productInfo === "verify" ? null :
+                                    <ListItem disablePadding>
+                                        <Stack direction="row" spacing={2} sx={{paddingTop:'2%'}}>
+                                            <VerifiedUserIcon  sx={{width:'25px', height:'25px', color:'authenticated.main'}}/>
+                                            <CustomTypo variant="h5" mVariant="body1" color={body.TimelineTitle[0].color} content="Last authenticated on 21 June 2022"/>
+                                        </Stack>
+                                    </ListItem>
                             }
-                        </Stack>
+                            <ListItem disablePadding>
+                                <Stack direction="row" spacing={2} sx={{paddingTop:'2%',paddingBottom:'5%'}}>
+                                    <CustomChip icon={<CodeOutlinedIcon />} size="medium" mSize="small" label="QR0000001" onClick={handleClick(Fade)} />
+                                    <CustomChip icon={<DeveloperModeOutlinedIcon />} size="medium" mSize="small" label="AB123412-4" onClick={handleClick(Fade)} />
+                                    {
+                                        setting.productInfo === "success" ?
+                                            <CustomChip icon={<CloudDownloadIcon />} size="medium" mSize="small" label="Download" onClick={handleOpenOwner} />
+                                        :  null
+                                    }
+                                </Stack>
+                            </ListItem>
+                        </List>
                     </Grid>
                 </Grid>
             </Container>
@@ -202,6 +224,27 @@ const ProductInfo = (props) => {
                 : null
             }
 
+            <Container sx={{paddingTop:"5%"}}>
+            <Box sx={{backgroundColor:"#F4F6F6", boxShadow: "1px -1px 10px 10px rgb(12 12 12 / 5%)", borderRadius: "15px 15px 15px 15px"}}>
+                {   
+                    setting.productInfo === "success" ? 
+                        <Button variant="contained" sx={{minWidth:'100%'}} startIcon={<VerifiedUserIcon />} color="success">
+                            <CustomTypo variant="h6" mVariant="body1" content="Product Authenticated" />
+                        </Button> :
+                    setting.productInfo === "verify" ? 
+                        <Button variant="contained" sx={{minWidth:'100%'}} startIcon={<PolicyIcon />} color="warning" onClick={handleScan}>
+                            <CustomTypo variant="h6" mVariant="body1" content="Verify Product Authenticity" />
+                        </Button> :
+                    setting.productInfo === "failed" ? 
+                        <Button variant="contained" sx={{minWidth:'100%'}} startIcon={<PrivacyTipIcon />} color="info">
+                            <CustomTypo variant="h6" mVariant="body1" content="Product Previously Scanned" />
+                        </Button>
+                    : null
+                }
+            </Box>
+            </Container>
+            
+            
             {/* Popup Ownership Card */}
             <PopupDialog
                 keepMounted

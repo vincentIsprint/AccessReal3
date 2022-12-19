@@ -1,5 +1,5 @@
 import { useState, React } from 'react';
-import { Box, Container, Grid, List, ListItem, ListItemText, Fade, TextField, InputAdornment, ListItemAvatar, Snackbar, Alert, Stack, Pagination, Paper, Avatar, IconButton  } from '@mui/material';
+import { Box, Container, Grid, List, ListItem, ListItemText, Fade, TextField, InputAdornment, ListItemAvatar, Snackbar, Alert, Stack, Pagination, Paper, Avatar  } from '@mui/material';
 import Header from '../component/Header';
 import Footer from '../component/Footer';
 import similac from '../img/similac.png';
@@ -12,6 +12,7 @@ import { blue } from '@mui/material/colors';
 import PopupDialog from '../component/PopupDialog';
 import CustomChip from '../component/CustomChip';
 import CustomTypo from '../component/CustomTypo';
+import CustomIcon from '../component/CustomIcon';
 
 const Friend = () => {
 
@@ -158,9 +159,7 @@ const Friend = () => {
                                         <Paper sx={{borderRadius: "10px 10px 10px 10px"}}>
                                             <ListItem key={index}
                                                 secondaryAction={
-                                                    <IconButton>
-                                                        <DeleteIcon />
-                                                    </IconButton>
+                                                    <CustomIcon size="large" mSize="small" icon={<DeleteIcon />}/>
                                                 }
                                             > 
                                                 <ListItemAvatar sx={{padding:'2%'}}>
@@ -192,7 +191,6 @@ const Friend = () => {
                 onClose={handleCloseAddFriend}
                 value={addFriend}
             />
-        
             <Footer info={body.Footer[0]} />
         </>
     );

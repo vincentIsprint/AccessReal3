@@ -1,37 +1,20 @@
 import { useState, React } from 'react';
-import { BottomNavigation, BottomNavigationAction, Box, Button } from '@mui/material';
+import { BottomNavigation, BottomNavigationAction, Box } from '@mui/material';
 import { useSelector } from 'react-redux';
-import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
-import PrivacyTipIcon from '@mui/icons-material/PrivacyTip';
-import PolicyIcon from '@mui/icons-material/Policy';
 import { Link } from 'react-router-dom';
 import PercentRoundedIcon from '@mui/icons-material/PercentRounded';
 import GroupIcon from '@mui/icons-material/Group';
-import FlipCameraIosIcon from '@mui/icons-material/FlipCameraIos';
-import FlashOnIcon from '@mui/icons-material/FlashOn';
-import HistoryIcon from '@mui/icons-material/History';
 import RedeemIcon from '@mui/icons-material/Redeem';
-import FileUploadIcon from '@mui/icons-material/FileUpload';
-import { setLoginInfo } from '../redux/setting';
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import CustomTypo from '../component/CustomTypo';
+import QrCodeScannerIcon from '@mui/icons-material/QrCodeScanner';
 
 const Footer = (props) => {
 
     const setting = useSelector((state)=>state.setting)
     const [value, setValue] = useState(0);
 
-    const dispatch = useDispatch();
-    let navigate = useNavigate();
-
-    const handleScan = () => {
-        dispatch(setLoginInfo({loginInfo: 'none'}))
-        navigate("/Scan");
-    };
-
     return(
         <>
+            <Box sx={{padding:'5%'}} />
             <Box component="footer"
                 sx={{
                     position: 'fixed',
@@ -42,21 +25,6 @@ const Footer = (props) => {
                     borderRadius: "15px 15px 0px 0px",
                 }}
             >
-                {   
-                    setting.productInfo === "success" ? 
-                        <Button variant="contained" sx={{minWidth:'100%'}} startIcon={<VerifiedUserIcon />} color="success">
-                            <CustomTypo variant="h6" mVariant="body1" content="Product Authenticated" />
-                        </Button> :
-                    setting.productInfo === "verify" ? 
-                        <Button variant="contained" sx={{minWidth:'100%'}} startIcon={<PolicyIcon />} color="warning" onClick={handleScan}>
-                            <CustomTypo variant="h6" mVariant="body1" content="Verify Product Authenticity" />
-                        </Button> :
-                    setting.productInfo === "failed" ? 
-                        <Button variant="contained" sx={{minWidth:'100%'}} startIcon={<PrivacyTipIcon />} color="info">
-                            <CustomTypo variant="h6" mVariant="body1" content="Product Previously Scanned" />
-                        </Button>
-                    : null
-                }
                 {
                     props.info.content !== undefined ? 
                         props.info.content 
@@ -103,9 +71,9 @@ const Footer = (props) => {
                             component={Link}
                             to={`/Redeem`}
                         />
-                        <BottomNavigationAction label="Scan History" 
+                        <BottomNavigationAction label="Scan" 
                             sx={{color:theme => theme.palette.info.main}} 
-                            icon={<HistoryIcon />}
+                            icon={<QrCodeScannerIcon />}
                             component={Link}
                             to={`/Scan_History`}
                         />

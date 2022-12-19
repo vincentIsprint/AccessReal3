@@ -1,12 +1,13 @@
 import { useState, useEffect, React } from 'react';
 import HelpIcon from '@mui/icons-material/Help';
-import { IconButton, Grid, Container, Box, Snackbar, Alert, TextField  } from '@mui/material';
+import { Grid, Container, Box, Snackbar, Alert, TextField  } from '@mui/material';
 import Header from '../component/Header';
-import Footer from '../component/Footer';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import Fade from '@mui/material/Fade';
-import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { setProductInfo } from '../redux/setting';
+import CustomIcon from '../component/CustomIcon';
 
 const Scan = () => {
 
@@ -17,11 +18,17 @@ const Scan = () => {
         Transition: Fade,
     });
 
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const handleClick = (Transition) => () => {
         setState({
           open: true,
           Transition,
         });
+        dispatch(setProductInfo({
+            productInfo: 'success'
+        }));
+        navigate("/ProductInfo");
     };
 
     const handleClose = () => {
@@ -35,17 +42,14 @@ const Scan = () => {
         Item : [
             {   
                 leftcontent:
-                    <IconButton size="large" edge="start" sx={{color:"primary.main"}}
-                        component={Link} to={ setting.loginInfo !== "login" ? '/ProductInfo' : '/Scan_History'}
-                    >
-                        <ArrowBackIosNewIcon />
-                    </IconButton>,
+                    <CustomIcon size="large" mSize="small" edge="start" icon={<ArrowBackIosNewIcon />} sx={{color:"primary.main"}} 
+                        component={Link} to={ setting.loginInfo !== "login" ? '/ProductInfo' : '/Scan_History'}/>,
                 rightcontent: 
-                    <IconButton size="large" edge="end" sx={{color:"primary.main"}}
-                        component={Link} to={`/Help_Scan`}
-                    >
-                        <HelpIcon />
-                    </IconButton>
+                    setting.loginInfo !== "login" ?
+                        <CustomIcon size="large" mSize="small" edge="end" icon={<HelpIcon />} sx={{color:"primary.main"}} 
+                            component={Link} to={`/Help_Scan`}/>
+                    : null,
+                login: setting.loginInfo !== "login" ? false : true
             }
         ]
     })

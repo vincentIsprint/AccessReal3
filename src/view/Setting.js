@@ -146,7 +146,6 @@ const Setting = () => {
                     onClose={handleCloseLanguage}
                     value={value}
                 />
-
                 <Footer info={body.Footer[0]} />
         </>
     );

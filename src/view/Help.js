@@ -1,6 +1,6 @@
 import { useState, React } from 'react';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import { IconButton, Container, Grid, Stack } from '@mui/material';
+import { Container, Grid, Stack } from '@mui/material';
 import Header from '../component/Header';
 import Footer from '../component/Footer';
 import Image from '../component/Image';
@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import CustomTable from '../component/CustomTable';
 import CustomTypo from '../component/CustomTypo';
+import CustomIcon from '../component/CustomIcon';
 
 const Help = () => {
 
@@ -18,11 +19,8 @@ const Help = () => {
         Item : [
             {   
                 leftcontent:
-                    <IconButton size="large" edge="start" sx={{color:"primary.main"}}
-                        component={Link} to={`/ProductInfo`} 
-                    >
-                        <ArrowBackIosNewIcon />
-                    </IconButton>,
+                    <CustomIcon size="large" edge="start" sx={{color:"primary.main"}}
+                        component={Link} to={`/ProductInfo`} icon={<ArrowBackIosNewIcon />} />,
                 title: 'Product Authentication'
             }
         ]
